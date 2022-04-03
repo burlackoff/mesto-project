@@ -1,0 +1,7 @@
+.card__image {
+  width: 100%;
+  object-position: center;
+  object-fit: contain;
+  border-radius: 10px 10px 0 0;
+  padding: 0;
+}
