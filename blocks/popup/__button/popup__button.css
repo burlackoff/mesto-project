@@ -7,6 +7,7 @@
   border: none;
   cursor: pointer;
   background: url(../../../images/close_icon.svg) center center / contain no-repeat;
+  transition: opacity 0.2s;
 }
 
 .popup__button:hover {

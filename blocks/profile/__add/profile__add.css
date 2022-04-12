@@ -2,9 +2,11 @@
   width: 150px;
   height: 50px;
   padding: 0;
-  border: 1px solid white;
-  background-color: black;
+  border: 2px solid white;
+  background: url(../../../images/add.svg) center center no-repeat;
   cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.2s;
 }
 
 .profile__add:hover {
@@ -15,5 +17,4 @@
   .profile__add {
     width: 100%;
   }
-
 }

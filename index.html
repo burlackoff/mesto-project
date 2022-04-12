@@ -6,7 +6,7 @@
     <meta name="description" content="Интересные места в России" />
     <meta name="keywords" content="Яндекс Практикум" />
     <meta name="author" content="Степан Бурлаков" />
-    <link rel="stylesheet" href="./pages/pages.css" />
+    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
@@ -24,17 +24,15 @@
           <div class="profile__info">
             <div class="profile__name-block">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit"></button>
+              <button class="profile__edit" type="button"></button>
             </div>
             <p class="profile__profession">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add">
-          <img src="./images/add.svg" alt="#" class="profile__add-button" />
-        </button>
+        <button class="profile__add" type="button"></button>
       </section>
-      <section>
-        <ul class="cards">
+      <section class="cards">
+        <ul class="cards__list">
           <li>
             <article class="card">
               <img
@@ -44,7 +42,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Карачаевск</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -57,7 +55,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Гора Эльбрус</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -70,7 +68,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Домбай</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -83,7 +81,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Гора Эльбрус</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -96,7 +94,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Домбай</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -109,7 +107,7 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Карачаево-Черкесия</h2>
-                <button class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </article>
           </li>
@@ -119,27 +117,33 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Степан Бурлаков</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__container">
-        <form>
+        <form name="form-info">
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__info">
-            <input
-              type="text"
-              name="name"
-              value="Жак-Ив Кусто"
-              class="popup__name"
-            />
-            <input
-              type="text"
-              name="profession"
-              value="Исследователь океана"
-              class="popup__profession"
-            />
-            <button class="popup__submit">Сохранить</button>
+            <div class="popup__wrapper">
+              <input
+                type="text"
+                name="name"
+                value="Жак-Ив Кусто"
+                class="popup__input popup__input_info_name"
+                placeholder="Введите Ваше имя"
+                required
+              />
+              <input
+                type="text"
+                name="profession"
+                value="Исследователь океана"
+                class="popup__input popup__input_info_profession"
+                placeholder="Введите Ваш род деятельности"
+                required
+              />
+            </div>
+            <button class="popup__submit" type="submit">Сохранить</button>
           </fieldset>
         </form>
-        <button class="popup__button"></button>
+        <button class="popup__button" type="button"></button>
       </div>
     </div>
   </body>
