@@ -24,12 +24,20 @@
           <div class="profile__info">
             <div class="profile__name-block">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit" type="button"></button>
+              <button
+                class="profile__edit"
+                type="button"
+                aria-label="Внести изменения в профиль."
+              ></button>
             </div>
             <p class="profile__profession">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add" type="button"></button>
+        <button
+          class="profile__add"
+          type="button"
+          aria-label="Добавить новое фото."
+        ></button>
       </section>
       <section class="cards">
         <ul class="cards__list">
@@ -42,7 +50,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Карачаевск</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -55,7 +67,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Гора Эльбрус</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -68,7 +84,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Домбай</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -81,7 +101,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Гора Эльбрус</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -94,7 +118,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Домбай</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -107,7 +135,11 @@
               />
               <div class="card__info">
                 <h2 class="card__title">Карачаево-Черкесия</h2>
-                <button class="card__like-button" type="button"></button>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Поставь лайк."
+                ></button>
               </div>
             </article>
           </li>
@@ -117,7 +149,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Степан Бурлаков</p>
     </footer>
-    <div class="popup popup_opened">
+    <div class="popup">
       <div class="popup__container">
         <form name="form-info">
           <h2 class="popup__title">Редактировать профиль</h2>
@@ -140,10 +172,16 @@
                 required
               />
             </div>
-            <button class="popup__submit" type="submit">Сохранить</button>
+            <button class="popup__submit" type="submit" aria-label="Сохранить.">
+              Сохранить
+            </button>
           </fieldset>
         </form>
-        <button class="popup__button" type="button"></button>
+        <button
+          class="popup__button"
+          type="button"
+          aria-label="Закрыть окно."
+        ></button>
       </div>
     </div>
   </body>

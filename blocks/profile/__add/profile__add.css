@@ -16,5 +16,6 @@
 @media screen and (max-width: 767.98px) {
   .profile__add {
     width: 100%;
+    background: url(../../../images/add-small.svg) center center no-repeat;
   }
 }
