@@ -40,15 +40,15 @@ function handleProfileEditFormSubmit(evt) {
   nameProfile.textContent = nameInput.value;
   professionProfile.textContent = jobInput.value;
   closePopup(popupInfo);
-  formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
   const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
   const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;  
-  creatCard(popupImageName, popupImageUrl);
+  appendCard(creatCard(popupImageName, popupImageUrl)); //Вставка карточки
   closePopup(popupCard);
+  formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
 
 function creatCard(name, link) {
@@ -61,8 +61,6 @@ function creatCard(name, link) {
   templateElement.querySelector('.card__image').src = link;
   templateElement.querySelector('.card__image').alt = name;
   
-  appendCard(templateElement); //Вставка карточки
-  
   buttonLike.addEventListener('click', () => buttonLike.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
   buttonTrash.addEventListener('click', () => templateElement.remove()); //Добавление обработчика удаление карточки
   //Обработчик просмотра картинки
@@ -70,13 +68,15 @@ function creatCard(name, link) {
     openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку
     imageClick.alt = name; //Прописываем alt
-    imageSubtitle.textContent = name; //Заменяем подпись    
+    imageSubtitle.textContent = name; //Заменяем подпись      
   });
+
+  return templateElement;
 };
 
 //Функция загрузки стартовых карточек
 function renderCard(arrayCard) {
-  arrayCard.forEach(item => creatCard(item.name, item.link))
+  arrayCard.forEach(item => appendCard(creatCard(item.name, item.link)));
 };
 
 //Вставка карточки в начало списка
