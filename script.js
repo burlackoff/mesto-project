@@ -10,16 +10,16 @@ function closePopup(popup) {
 //start
 
 const popupInfo = document.querySelector('#popup_info');
-const openButtonPopup = document.querySelector('.profile__edit');
-const closeButtonPopup = popupInfo.querySelector('.popup__button');
+const openButtonPopupInfo = document.querySelector('.profile__edit');
+const closeButtonPopupInfo = popupInfo.querySelector('.popup__button');
 
 //Открытие модального окна
-openButtonPopup.addEventListener('click', function () {
+openButtonPopupInfo.addEventListener('click', function () {
   openPopup(popupInfo);
 });
 
 //Закрытие модального окна
-closeButtonPopup.addEventListener('click', function () {
+closeButtonPopupInfo.addEventListener('click', function () {
   closePopup(popupInfo);
 })
 
@@ -117,32 +117,7 @@ closeButtonPopupImage.addEventListener('click', function () {
 //Загрузка стартовых картинок
 //start
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-  ];
+
 
 const cardImages = document.querySelectorAll('.card__image');
 const cardTitles = document.querySelectorAll('.card__title');
