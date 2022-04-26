@@ -39,7 +39,8 @@ function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   professionProfile.textContent = jobInput.value;
-  popupInfo.classList.remove('popup_opened');
+  closePopup(popupInfo);
+  formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
 
 function handleCreatCardFromSubmit(evt) {
@@ -47,6 +48,7 @@ function handleCreatCardFromSubmit(evt) {
   const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
   const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;  
   creatCard(popupImageName, popupImageUrl);
+  closePopup(popupCard);
 };
 
 function creatCard(name, link) {
@@ -58,13 +60,11 @@ function creatCard(name, link) {
   templateElement.querySelector('.card__title').textContent = name;
   templateElement.querySelector('.card__image').src = link;
   templateElement.querySelector('.card__image').alt = name;
-  listCards.prepend(templateElement); //Вставка карточки в начало списка
-
-  popupCard.classList.remove('popup_opened'); //Закрытие модалки после создание карточки
-  formPopupCard.reset(); //Обнуление формы модалки создания карточки
+  
+  appendCard(templateElement); //Вставка карточки
   
   buttonLike.addEventListener('click', () => buttonLike.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
-  buttonTrash.addEventListener('click', () => buttonTrash.closest('li').remove()); //Добавление обработчика удаление карточки
+  buttonTrash.addEventListener('click', () => templateElement.remove()); //Добавление обработчика удаление карточки
   //Обработчик просмотра картинки
   buttonImage.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
@@ -79,6 +79,11 @@ function renderCard(arrayCard) {
   arrayCard.forEach(item => creatCard(item.name, item.link))
 };
 
+//Вставка карточки в начало списка
+function appendCard(card) {
+  listCards.prepend(card);
+}
+
 renderCard(initialCards); //Рендеринг стартовых карточек
 
 //Обработчики событий
@@ -88,10 +93,10 @@ closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage)); /
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit); //Обработчик отправки формы
 openButtonPopupCard.addEventListener('click', () => openPopup(popupCard)); //Обработчик открытия модалки добавление карточки
 closeButtonPopupCard.addEventListener('click', () => closePopup(popupCard)); //Обработчик закрытия модалки добавление карточки
-openButtonPopupInfo.addEventListener('click', () => openPopup(popupInfo)); //Обработчик открытия модалки редактирования профиля
-//Обработчик закрытия модалки редактирования профиля
-closeButtonPopupInfo.addEventListener('click', () => {
+//Обработчик открытия модалки редактирования профиля
+openButtonPopupInfo.addEventListener('click', () => {
+  openPopup(popupInfo)
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
-  closePopup(popupInfo);
-});
+}); 
+closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля
