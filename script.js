@@ -109,25 +109,7 @@ closeButtonPopupImage.addEventListener('click', function () {
   closePopup(popupImage);
 });
 
-//Загрузка стартовых картинок
-//start
-
-const cardImages = document.querySelectorAll('.card__image');
-const cardTitles = document.querySelectorAll('.card__title');
-
-function replaceCards(cardImages, cardTitles) {
-  for (let i = 0; i < cardImages.length; i++) {
-    cardImages[i]['src'] = initialCards[i]['link'];
-    cardTitles[i].textContent = initialCards[i]['name'];
-  }
-}
-
-replaceCards(cardImages, cardTitles);
-
-//Загрузка стартовых картинок
-//end
-
-
+//Функция создание карточек
 function creatCard(name, link) {
   const formPopupCard = popupCard.querySelector('form');
   const listCards = document.querySelector('.cards__list');
@@ -142,3 +124,10 @@ function creatCard(name, link) {
   popupCard.classList.remove('popup_opened');
   formPopupCard.reset();
 };
+
+//Функция загрузки стартовых карточек
+function renderCard(arrayCard) {
+  arrayCard.forEach(item => creatCard(item.name, item.link))
+};
+
+renderCard(initialCards);
