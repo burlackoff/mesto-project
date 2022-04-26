@@ -62,21 +62,11 @@ closeButtonPopupCard.addEventListener('click', function () {
 // Добавление картинки
 function formSubmitImage(evt) {
   evt.preventDefault();
-  const templateCard = document.querySelector('#template_card').content;
-  const templateElement = templateCard.querySelector('li').cloneNode(true);
-
-  const popupImageName = popupCard.querySelector('.popup__input_name_image');
-  const popupImageUrl = popupCard.querySelector('.popup__input_src_image');
   
-  templateElement.querySelector('.card__title').textContent = popupImageName.value;
-  templateElement.querySelector('.card__image').src = popupImageUrl.value;
-  popupCard.classList.remove('popup_opened');
-  
-  const listCards = document.querySelector('.cards__list');
-  listCards.prepend(templateElement);
+  const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
+  const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;
 
-  const formPopupCard = popupCard.querySelector('form');
-  formPopupCard.reset();
+  creatCard(popupImageName, popupImageUrl);
 };
 
 popupCard.addEventListener('submit', formSubmitImage);
@@ -122,8 +112,6 @@ closeButtonPopupImage.addEventListener('click', function () {
 //Загрузка стартовых картинок
 //start
 
-
-
 const cardImages = document.querySelectorAll('.card__image');
 const cardTitles = document.querySelectorAll('.card__title');
 
@@ -138,3 +126,19 @@ replaceCards(cardImages, cardTitles);
 
 //Загрузка стартовых картинок
 //end
+
+
+function creatCard(name, link) {
+  const formPopupCard = popupCard.querySelector('form');
+  const listCards = document.querySelector('.cards__list');
+  const templateCard = document.querySelector('#template_card').content;
+  const templateElement = templateCard.querySelector('li').cloneNode(true);
+
+  templateElement.querySelector('.card__title').textContent = name;
+  templateElement.querySelector('.card__image').src = link;
+  templateElement.querySelector('.card__image').alt = name;
+  listCards.prepend(templateElement);
+
+  popupCard.classList.remove('popup_opened');
+  formPopupCard.reset();
+};
