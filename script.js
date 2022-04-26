@@ -69,6 +69,7 @@ function creatCard(name, link) {
   buttonImage.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку
+    imageClick.alt = name; //Прописываем alt
     imageSubtitle.textContent = name; //Заменяем подпись    
   });
 };
