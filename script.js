@@ -74,6 +74,9 @@ function formSubmitImage(evt) {
   
   const listCards = document.querySelector('.cards__list');
   listCards.prepend(templateElement);
+
+  const formPopupCard = popupCard.querySelector('form');
+  formPopupCard.reset();
 };
 
 popupCard.addEventListener('submit', formSubmitImage);
