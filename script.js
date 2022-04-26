@@ -20,6 +20,8 @@ openButtonPopupInfo.addEventListener('click', function () {
 
 //Закрытие модального окна
 closeButtonPopupInfo.addEventListener('click', function () {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = professionProfile.textContent;
   closePopup(popupInfo);
 })
 
