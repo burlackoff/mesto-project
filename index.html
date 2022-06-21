@@ -48,13 +48,13 @@
     </footer>
     <div class="popup" id="popup_info">
       <div class="popup__container">
-        <form name="form-info">
+        <form name="form-profile" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__info">
             <div class="popup__wrapper">
               <input
                 type="text"
-                name="name"
+                name="name-profile"
                 value="Жак-Ив Кусто"
                 class="popup__input popup__input_info_name"
                 placeholder="Введите Ваше имя"
@@ -62,7 +62,7 @@
               />
               <input
                 type="text"
-                name="profession"
+                name="profession-profile"
                 value="Исследователь океана"
                 class="popup__input popup__input_info_profession"
                 placeholder="Введите Ваш род деятельности"
@@ -83,20 +83,20 @@
     </div>
     <div class="popup" id="popup_card">
       <div class="popup__container">
-        <form name="form-info">
+        <form name="form-card" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__info">
             <div class="popup__wrapper">
               <input
                 type="text"
-                name="name"
+                name="name-card"
                 class="popup__input popup__input_name_image"
                 placeholder="Название"
                 required
               />
               <input
                 type="text"
-                name="profession"
+                name="link-card"
                 class="popup__input popup__input_src_image"
                 placeholder="Ссылка на картинку"
                 required
