@@ -29,6 +29,16 @@ const listCards = document.querySelector('.cards__list');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closePopup(popup)
+    }
+  })
+  popup.addEventListener('click', event => {
+    if (event.target === popup) {
+      closePopup(popup)
+    }
+  })
 }
 
 function closePopup(popup) {
@@ -100,3 +110,4 @@ openButtonPopupInfo.addEventListener('click', () => {
   jobInput.value = professionProfile.textContent;
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля
+
