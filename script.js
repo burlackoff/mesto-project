@@ -118,3 +118,49 @@ openButtonPopupInfo.addEventListener('click', () => {
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля
 
+
+
+
+function isValid(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}
+
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  errorElement.classList.add('popup__error_active');
+  errorElement.textContent = errorMessage;
+  // inputElement.classList.add('popup__input_type_error');
+  //Добавить стили для класса popup__input_type_error
+}
+
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  errorElement.classList.remove('popup__error_active');
+  // inputElement.classList.remove('popup__input_type_error');
+}
+
+function setEventListener(formElement) {
+  const inputElements = formElement.querySelectorAll('.popup__input');
+  inputElements.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement)
+    })
+  })
+}
+
+function enableValidation() {
+  const formElements = document.querySelectorAll('.form');
+  formElements.forEach((formElement) => {
+    formElement.addEventListener('submit', (event) => {
+      event.preventDefault();
+    })
+
+    setEventListener(formElement);
+  })
+}
+
+enableValidation()
