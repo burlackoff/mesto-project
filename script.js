@@ -115,6 +115,7 @@ openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo)
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
+  enableValidation()
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля
 
@@ -144,9 +145,15 @@ function hideInputError(formElement, inputElement) {
 
 function setEventListener(formElement) {
   const inputElements = formElement.querySelectorAll('.popup__input');
+  const buttonElement = formElement.querySelector('.popup__submit');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+
+  toggleButtonState(inputList, buttonElement);
+
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement)
+      isValid(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     })
   })
 }
@@ -161,5 +168,20 @@ function enableValidation() {
     setEventListener(formElement);
   })
 }
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__submit_disabled');
+  } else {
+    buttonElement.classList.remove('popup__submit_disabled');
+  }
+}
+
 
 enableValidation()
