@@ -133,14 +133,13 @@ function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.classList.add('popup__error_active');
   errorElement.textContent = errorMessage;
-  // inputElement.classList.add('popup__input_type_error');
-  //Добавить стили для класса popup__input_type_error
+  inputElement.classList.add('popup__input_type_error');
 }
 
 function hideInputError(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.classList.remove('popup__error_active');
-  // inputElement.classList.remove('popup__input_type_error');
+  inputElement.classList.remove('popup__input_type_error');
 }
 
 function setEventListener(formElement) {
