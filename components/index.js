@@ -18,7 +18,8 @@ openButtonPopupInfo.addEventListener('click', () => {
   openPopup(document.querySelector('#popup_info'))
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
-  isValid(document.querySelector('#popup_info'), nameInput)
-  enableValidation()
+  isValid(document.querySelector('#popup_info'), nameInput);
+  isValid(document.querySelector('#popup_info'), jobInput);
+  enableValidation();
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(document.querySelector('#popup_info'))); //Обработчик закрытия модалки редактирования профиля
