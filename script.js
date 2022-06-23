@@ -115,6 +115,7 @@ openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo)
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
+  isValid(popupInfo, nameInput)
   enableValidation()
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля
