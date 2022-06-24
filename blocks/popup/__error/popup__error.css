@@ -6,6 +6,6 @@
   line-height: 14.52px;
   font-weight: 400;
   color: #FF0000;
-  height: 30px;
+  min-height: 30px;
   transition: 0.2s;
 }
