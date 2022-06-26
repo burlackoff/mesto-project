@@ -1,7 +1,7 @@
-import {initialCards, renderCard} from './card.js';
-import {openPopup, closePopup, handleProfileEditFormSubmit, handleCreatCardFromSubmit} from './modal.js';
-import {enableValidation, isValid} from './validate.js';
-import {formPopupInfo, closeButtonPopupImage, formPopupCard, openButtonPopupCard, closeButtonPopupCard, openButtonPopupInfo, nameInput, jobInput, nameProfile, professionProfile, closeButtonPopupInfo} from './data.js';
+import {initialCards, renderCard} from './components/card.js';
+import {openPopup, closePopup, handleProfileEditFormSubmit, handleCreatCardFromSubmit} from './components/modal.js';
+import {enableValidation, isValid} from './components/validate.js';
+import {formPopupInfo, closeButtonPopupImage, formPopupCard, openButtonPopupCard, closeButtonPopupCard, openButtonPopupInfo, nameInput, jobInput, nameProfile, professionProfile, closeButtonPopupInfo} from './components/data.js';
 
  
 renderCard(initialCards); //Рендеринг стартовых карточек
