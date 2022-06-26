@@ -6,7 +6,6 @@
     <meta name="description" content="Интересные места в России" />
     <meta name="keywords" content="Яндекс Практикум" />
     <meta name="author" content="Степан Бурлаков" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
@@ -17,7 +16,7 @@
       <section class="profile">
         <div class="profile__block-wrapper">
           <img
-            src="./images/profile_avatar.jpg"
+            src="<%=require('./images/profile_avatar.jpg')%>"
             alt="Аватарка."
             class="profile__avatar"
           />
@@ -166,6 +165,5 @@
         </article>
       </li>
     </template>
-    <script type="module" src="./index.js"></script>
   </body>
 </html>

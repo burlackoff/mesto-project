@@ -2,6 +2,7 @@ import {initialCards, renderCard} from './components/card.js';
 import {openPopup, closePopup, handleProfileEditFormSubmit, handleCreatCardFromSubmit} from './components/modal.js';
 import {enableValidation, isValid} from './components/validate.js';
 import {formPopupInfo, closeButtonPopupImage, formPopupCard, openButtonPopupCard, closeButtonPopupCard, openButtonPopupInfo, nameInput, jobInput, nameProfile, professionProfile, closeButtonPopupInfo} from './components/data.js';
+import './pages/index.css';
 
  
 renderCard(initialCards); //Рендеринг стартовых карточек
