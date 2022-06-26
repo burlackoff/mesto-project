@@ -16,13 +16,13 @@ function renderInitialCards(arrayCard) {
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value;
+  professionProfile.textContent = jobInput.value; 
   closePopup(popupInfo);
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
-  appendCard(createCard(popupImageName, popupImageUrl)); //Вставка карточки
+  appendCard(createCard(popupImageName.value, popupImageUrl.value)); //Вставка карточки
   closePopup(popupCard);
   formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
