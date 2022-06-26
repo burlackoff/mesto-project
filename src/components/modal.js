@@ -1,6 +1,4 @@
-import {popupCard, popupInfo, formPopupCard, nameProfile, professionProfile, nameInput, jobInput} from './data.js';
-import {appendCard, creatCard} from './card.js'
-import {enableValidation, isValid} from './validate.js';
+import {popupImage, popupCard, closeButtonPopupImage, closeButtonPopupCard} from './utils.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -27,19 +25,5 @@ function overlayClose(event) {
   }
 }
 
-export function handleProfileEditFormSubmit(evt) {
-  evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value;
-  closePopup(popupInfo);
-};
-
-export function handleCreatCardFromSubmit(evt) {
-  evt.preventDefault();
-  const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
-  const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;  
-  appendCard(creatCard(popupImageName, popupImageUrl)); //Вставка карточки
-  closePopup(popupCard);
-  formPopupCard.reset(); //Обнуление формы модалки создания карточки
-  enableValidation();
-};
+closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
+closeButtonPopupCard.addEventListener('click', () => closePopup(popupCard));
