@@ -11,7 +11,7 @@ export function createCard(name, link) {
   image.src = link;
   image.alt = name;
   
-  setEventListner(buttonLike, buttonTrash)
+  setEventListner(buttonLike, buttonTrash, templateElement)
   //Обработчик просмотра картинки
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
@@ -23,9 +23,9 @@ export function createCard(name, link) {
   return templateElement;
 };
 
-function setEventListner(like, trash) {
-  like.addEventListener('click', () => buttonLike.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
-  trash.addEventListener('click', () => templateElement.remove()); //Добавление обработчика удаление карточки
+function setEventListner(like, trash, card) {
+  like.addEventListener('click', () => like.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
+  trash.addEventListener('click', () => card.remove()); //Добавление обработчика удаление карточки
 }
 
 function cardClone() {
