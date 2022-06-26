@@ -1,4 +1,4 @@
-import {initialCards, formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, closeButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards} from '../components/utils.js'
+import {initialCards, formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, closeButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
@@ -9,7 +9,7 @@ function appendCard(card) {
   listCards.prepend(card);
 }
 
-function renderCard(arrayCard) {
+function renderInitialCards(arrayCard) {
   arrayCard.forEach(item => appendCard(createCard(item.name, item.link)));
 };
 
@@ -22,14 +22,12 @@ function handleProfileEditFormSubmit(evt) {
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
-  const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
-  const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;  
   appendCard(createCard(popupImageName, popupImageUrl)); //Вставка карточки
   closePopup(popupCard);
   formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
 
-renderCard(initialCards); //Рендеринг стартовых карточек
+renderInitialCards(initialCards); //Рендеринг стартовых карточек
 enableValidation()
 
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля

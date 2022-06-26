@@ -15,6 +15,8 @@ export const popupCard = document.querySelector('#popup_card');
 export const openButtonPopupCard = document.querySelector('.profile__add');
 export const closeButtonPopupCard = popupCard.querySelector('.popup__button');
 export const formPopupCard = popupCard.querySelector('form');
+export const popupImageName = popupCard.querySelector('.popup__input_name_image').value;
+export const popupImageUrl = popupCard.querySelector('.popup__input_src_image').value;  
 
 //Переменные модалки просмотра картинки
 export const popupImage = document.querySelector('#popup_image');
@@ -23,6 +25,7 @@ export const imageSubtitle = popupImage.querySelector('.popup__subtitle');
 export const closeButtonPopupImage = popupImage.querySelector('.popup__button');
 
 export const listCards = document.querySelector('.cards__list');
+export const templateCard = document.querySelector('#template_card').content;
 export const initialCards = [
   {
     name: 'Архыз',
