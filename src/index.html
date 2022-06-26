@@ -6,7 +6,6 @@
     <meta name="description" content="Интересные места в России" />
     <meta name="keywords" content="Яндекс Практикум" />
     <meta name="author" content="Степан Бурлаков" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
@@ -17,7 +16,7 @@
       <section class="profile">
         <div class="profile__block-wrapper">
           <img
-            src="./images/profile_avatar.jpg"
+            src="<%=require('./images/profile_avatar.jpg')%>"
             alt="Аватарка."
             class="profile__avatar"
           />
@@ -48,26 +47,32 @@
     </footer>
     <div class="popup" id="popup_info">
       <div class="popup__container">
-        <form name="form-info">
+        <form class="form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__info">
             <div class="popup__wrapper">
               <input
                 type="text"
-                name="name"
+                id="name-profile"
                 value="Жак-Ив Кусто"
                 class="popup__input popup__input_info_name"
                 placeholder="Введите Ваше имя"
+                minlength="2"
+                maxlength="40"
                 required
               />
+              <span class="name-profile-error popup__error"></span>
               <input
                 type="text"
-                name="profession"
+                id="profession-profile"
                 value="Исследователь океана"
                 class="popup__input popup__input_info_profession"
                 placeholder="Введите Ваш род деятельности"
+                minlength="2"
+                maxlength="200"
                 required
               />
+              <span class="profession-profile-error popup__error"></span>
             </div>
             <button class="popup__submit" type="submit" aria-label="Сохранить.">
               Сохранить
@@ -83,24 +88,30 @@
     </div>
     <div class="popup" id="popup_card">
       <div class="popup__container">
-        <form name="form-info">
+        <form class="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__info">
             <div class="popup__wrapper">
               <input
                 type="text"
-                name="name"
+                id="name-card"
                 class="popup__input popup__input_name_image"
                 placeholder="Название"
+                minlength="2"
+                maxlength="30"
                 required
               />
+              <span class="name-card-error popup__error"></span>
               <input
-                type="text"
-                name="profession"
+                type="url"
+                id="link-card"
                 class="popup__input popup__input_src_image"
                 placeholder="Ссылка на картинку"
                 required
               />
+              <span
+                class="link-card-error popup__error popup__error_active"
+              ></span>
             </div>
             <button class="popup__submit" type="submit" aria-label="Создать.">
               Создать
@@ -154,7 +165,5 @@
         </article>
       </li>
     </template>
-    <script src="./cards.js"></script>
-    <script src="./script.js"></script>
   </body>
 </html>

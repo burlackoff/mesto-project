@@ -1,0 +1,26 @@
+import {initialCards, renderCard} from './components/card.js';
+import {openPopup, closePopup, handleProfileEditFormSubmit, handleCreatCardFromSubmit} from './components/modal.js';
+import {enableValidation, isValid} from './components/validate.js';
+import {formPopupInfo, closeButtonPopupImage, formPopupCard, openButtonPopupCard, closeButtonPopupCard, openButtonPopupInfo, nameInput, jobInput, nameProfile, professionProfile, closeButtonPopupInfo} from './components/data.js';
+import './pages/index.css';
+
+ 
+renderCard(initialCards); //Рендеринг стартовых карточек
+enableValidation()
+
+
+formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля
+closeButtonPopupImage.addEventListener('click', () => closePopup(document.querySelector('#popup_image'))); //Добавление обработчика закрытие модалки просмотра картинки
+formPopupCard.addEventListener('submit', handleCreatCardFromSubmit); //Обработчик отправки формы
+openButtonPopupCard.addEventListener('click', () => openPopup(document.querySelector('#popup_card'))); //Обработчик открытия модалки добавление карточки
+closeButtonPopupCard.addEventListener('click', () => closePopup(document.querySelector('#popup_card'))); //Обработчик закрытия модалки добавление карточки
+//Обработчик открытия модалки редактирования профиля
+openButtonPopupInfo.addEventListener('click', () => {
+  openPopup(document.querySelector('#popup_info'))
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = professionProfile.textContent;
+  isValid(document.querySelector('#popup_info'), nameInput);
+  isValid(document.querySelector('#popup_info'), jobInput);
+  enableValidation();
+}); 
+closeButtonPopupInfo.addEventListener('click', () => closePopup(document.querySelector('#popup_info'))); //Обработчик закрытия модалки редактирования профиля
