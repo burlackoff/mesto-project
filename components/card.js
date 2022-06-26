@@ -31,7 +31,7 @@ export const initialCards = [
 const templateCard = document.querySelector('#template_card').content;
 const listCards = document.querySelector('.cards__list');
 
-function creatCard(name, link) {
+export function creatCard(name, link) {
   const templateElement = templateCard.querySelector('li').cloneNode(true); //клонируем карточку
   const buttonLike = templateElement.querySelector('.card__like-button');
   const buttonTrash = templateElement.querySelector('.card__trash-button');
@@ -55,7 +55,7 @@ function creatCard(name, link) {
 };
 
 //Вставка карточки в начало списка
-function appendCard(card) {
+export function appendCard(card) {
   listCards.prepend(card);
 }
 

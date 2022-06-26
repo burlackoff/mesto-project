@@ -1,4 +1,6 @@
 import {popupCard, popupInfo, formPopupCard, nameProfile, professionProfile, nameInput, jobInput} from './data.js';
+import {appendCard, creatCard} from './card.js'
+import {enableValidation, isValid} from './validate.js';
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -39,4 +41,5 @@ export function handleCreatCardFromSubmit(evt) {
   appendCard(creatCard(popupImageName, popupImageUrl)); //Вставка карточки
   closePopup(popupCard);
   formPopupCard.reset(); //Обнуление формы модалки создания карточки
+  enableValidation();
 };
