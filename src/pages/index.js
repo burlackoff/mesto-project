@@ -30,7 +30,6 @@ function handleCreatCardFromSubmit(evt) {
 renderInitialCards(initialCards); //Рендеринг стартовых карточек
 enableValidation(valueConfig);
   
-
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit); //Обработчик отправки формы
 openButtonPopupCard.addEventListener('click', () => {
