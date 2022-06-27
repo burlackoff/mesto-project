@@ -1,6 +1,6 @@
 import {initialCards, formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, closeButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl} from '../components/utils.js'
 import {createCard} from '../components/card.js'
-import {enableValidation} from '../components/validate.js'
+import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
 
 import './index.css';
@@ -32,11 +32,15 @@ enableValidation()
 
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit); //Обработчик отправки формы
-openButtonPopupCard.addEventListener('click', () => openPopup(popupCard)); //Обработчик открытия модалки добавление карточки
+openButtonPopupCard.addEventListener('click', () => {
+  openPopup(popupCard);
+  clearValidationFrom(popupCard);
+});
 //Обработчик открытия модалки редактирования профиля
 openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo);
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
+  clearValidationFrom(popupInfo);
 }); 
 closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo)); //Обработчик закрытия модалки редактирования профиля

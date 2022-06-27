@@ -1,4 +1,4 @@
-export function isValid(formElement, inputElement) {
+function isValid(formElement, inputElement) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -57,4 +57,17 @@ export function enableValidation() {
 
     setEventListener(formElement);
   })
+}
+
+export function clearValidationFrom(popup) {
+  const formElement = popup.querySelector('.form');
+  const inputElements = formElement.querySelectorAll('.popup__input');
+  const buttonElement = formElement.querySelector('.popup__submit');
+  
+  inputElements.forEach((input) => {
+    const errorMessage = formElement.querySelector(`.${input.id}-error`);
+    errorMessage.classList.remove('popup__error_active');
+    input.classList.remove('popup__input_type_error');
+  });
+  buttonElement.classList.add('popup__submit_disabled');
 }
