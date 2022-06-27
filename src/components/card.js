@@ -1,51 +1,20 @@
 import {openPopup} from './modal.js';
-import {imageClick, imageSubtitle} from './data.js';
+import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
 
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-  ];
-
-const templateCard = document.querySelector('#template_card').content;
-const listCards = document.querySelector('.cards__list');
-
-export function creatCard(name, link) {
-  const templateElement = templateCard.querySelector('li').cloneNode(true); //клонируем карточку
+export function createCard(name, link) {
+  const templateElement = cardClone()
   const buttonLike = templateElement.querySelector('.card__like-button');
   const buttonTrash = templateElement.querySelector('.card__trash-button');
-  const buttonImage = templateElement.querySelector('.card__image');
+  const image = templateElement.querySelector('.card__image');
 
   templateElement.querySelector('.card__title').textContent = name;
-  templateElement.querySelector('.card__image').src = link;
-  templateElement.querySelector('.card__image').alt = name;
+  image.src = link;
+  image.alt = name;
   
-  buttonLike.addEventListener('click', () => buttonLike.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
-  buttonTrash.addEventListener('click', () => templateElement.remove()); //Добавление обработчика удаление карточки
+  setEventListner(buttonLike, buttonTrash, templateElement)
   //Обработчик просмотра картинки
-  buttonImage.addEventListener('click', () => {
-    openPopup(document.querySelector('#popup_image')); //Открытие модалки
+  image.addEventListener('click', () => {
+    openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку
     imageClick.alt = name; //Прописываем alt
     imageSubtitle.textContent = name; //Заменяем подпись      
@@ -54,12 +23,12 @@ export function creatCard(name, link) {
   return templateElement;
 };
 
-//Вставка карточки в начало списка
-export function appendCard(card) {
-  listCards.prepend(card);
+function setEventListner(like, trash, card) {
+  like.addEventListener('click', () => like.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
+  trash.addEventListener('click', () => card.remove()); //Добавление обработчика удаление карточки
 }
 
-//Функция загрузки стартовых карточек
-export function renderCard(arrayCard) {
-  arrayCard.forEach(item => appendCard(creatCard(item.name, item.link)));
-};
+function cardClone() {
+  const element = templateCard.querySelector('li').cloneNode(true);
+  return  element;
+}
