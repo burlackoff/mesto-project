@@ -26,6 +26,7 @@ export const closeButtonPopupImage = popupImage.querySelector('.popup__button');
 
 export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;
+
 export const valueConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
