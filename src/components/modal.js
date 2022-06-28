@@ -1,4 +1,4 @@
-import {popupImage, popupCard, closeButtonPopupImage, closeButtonPopupCard} from './utils.js'
+import {popupImage, popupCard, popupInfo, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo} from './utils.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -27,3 +27,4 @@ function overlayClose(event) {
 
 closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
 closeButtonPopupCard.addEventListener('click', () => closePopup(popupCard));
+closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo));
