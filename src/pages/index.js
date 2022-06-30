@@ -43,3 +43,26 @@ openButtonPopupInfo.addEventListener('click', () => {
   jobInput.value = professionProfile.textContent;
   clearValidationFrom(popupInfo, valueConfig);
 }); 
+
+
+fetch('https://nomoreparties.co/v1/plus-cohort-12/cards', {
+  headers: {
+    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+
+// GET 
+
+fetch('https://nomoreparties.co/v1/plus-cohort-12/users/me', {
+  headers: {
+    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
