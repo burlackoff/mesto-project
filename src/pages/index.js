@@ -1,8 +1,8 @@
-import {initialCards, formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-
+import {getCards, getUser} from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -27,7 +27,7 @@ function handleCreatCardFromSubmit(evt) {
   formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };
 
-renderInitialCards(initialCards); //Рендеринг стартовых карточек
+
 enableValidation(valueConfig);
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля
@@ -45,24 +45,8 @@ openButtonPopupInfo.addEventListener('click', () => {
 }); 
 
 
-fetch('https://nomoreparties.co/v1/plus-cohort-12/cards', {
-  headers: {
-    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  });
+getUser()
 
-// GET 
-
-fetch('https://nomoreparties.co/v1/plus-cohort-12/users/me', {
-  headers: {
-    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
-  }
-})
+getCards()
   .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  });
+  .then(res => renderInitialCards(res))
