@@ -2,7 +2,7 @@ import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, 
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser, patchUser} from '../components/api.js'
+import {getCards, getUser, patchUser, creatNewCard} from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -24,6 +24,7 @@ function handleProfileEditFormSubmit(evt) {
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
   appendCard(createCard(popupImageName.value, popupImageUrl.value)); //Вставка карточки
+  creatNewCard(popupImageName.value, popupImageUrl.value)
   closePopup(popupCard);
   formPopupCard.reset(); //Обнуление формы модалки создания карточки
 };

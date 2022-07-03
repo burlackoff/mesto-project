@@ -52,6 +52,23 @@ export function patchUser(name, about) {
   });
 }
 
-function creatNewCard() {
-  
+export function creatNewCard(name, link) {
+  fetch(`https://nomoreparties.co/v1/${config.url}/cards`, {
+    method: 'POST',
+    headers: {
+      authorization: `${config.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      link: `${link}`
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+     return Promise.reject(`Ошибка ${res}`)
+  })
+  .catch(err => console.log(err))
 }
