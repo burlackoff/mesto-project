@@ -2,7 +2,7 @@ import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, 
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser} from '../components/api.js'
+import {getCards, getUser, patchUser} from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -16,7 +16,8 @@ function renderInitialCards(arrayCard) {
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value; 
+  professionProfile.textContent = jobInput.value;
+  patchUser(nameInput.value, jobInput.value)
   closePopup(popupInfo);
 };
 
@@ -48,5 +49,4 @@ openButtonPopupInfo.addEventListener('click', () => {
 getUser()
 
 getCards()
-  .then(res => res.json())
   .then(res => renderInitialCards(res))

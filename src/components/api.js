@@ -10,14 +10,13 @@ export function getCards() {
   headers: {
     authorization: `${config.token}`
   }
-})
-  // .then(res => res.json())
-  // .then((result) => {
-  //   console.log(result);
-  // })
-  // .catch((err) => {
-  //   console.log(`Ошибка ${err}`)
-  // })
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+     return Promise.reject(`Ошибка ${res}`)
+  })
 }
 
 export function getUser() {
@@ -25,7 +24,7 @@ export function getUser() {
   headers: {
     authorization: `${config.token}`
   }
-})
+  })
   .then(res => {
     if (res.ok) {
       return res.json()
@@ -37,4 +36,22 @@ export function getUser() {
     professionProfile.textContent = data.about;
   })
   .catch(err => console.log(err))
+}
+
+export function patchUser(name, about) {
+  fetch(`https://nomoreparties.co/v1/${config.url}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      authorization: `${config.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      about: about
+    })
+  });
+}
+
+function creatNewCard() {
+  
 }
