@@ -6,18 +6,20 @@ export const config = {
   userId: '94daa3f73b361f2df69c95ee'
 }
 
+function checkPesponse(res) {
+  if (res.ok) {
+    return res.json()
+  }
+  return Promise.reject(`Ошибка ${res}`)
+}
+
 export function getCards() {
   return fetch(`https://nomoreparties.co/v1/${config.url}/cards`, {
   headers: {
     authorization: `${config.token}`
   }
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-     return Promise.reject(`Ошибка ${res}`)
-  })
+  .then(res => checkPesponse(res))
 }
 
 export function getUser() {
@@ -26,12 +28,7 @@ export function getUser() {
     authorization: `${config.token}`
   }
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка ${res}`);
-  })
+  .then(res => checkPesponse(res))
   .then(data => {
     nameProfile.textContent = data.name;
     professionProfile.textContent = data.about;
@@ -50,7 +47,8 @@ export function patchUser(name, about) {
       name: name,
       about: about
     })
-  });
+  })
+  .then(res => checkPesponse(res));
 }
 
 export function creatNewCard(name, link) {
@@ -65,12 +63,7 @@ export function creatNewCard(name, link) {
       link: `${link}`
     })
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-     return Promise.reject(`Ошибка ${res}`)
-  })
+  .then(res => checkPesponse(res))
   .catch(err => console.log(err))
 }
 
@@ -81,6 +74,7 @@ export function deleteCard(cardId) {
       authorization: `${config.token}`
     }
   })
+  .then(res => checkPesponse(res))
 }
 
 export function putLike(cardId) {
@@ -90,10 +84,5 @@ export function putLike(cardId) {
       authorization: `${config.token}`
     }
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-     return Promise.reject(`Ошибка ${res}`)
-  })
+  .then(res => checkPesponse(res))
 }
