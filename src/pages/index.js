@@ -53,7 +53,4 @@ getCards()
   .then(cards => renderInitialCards(cards));
 
 getCards()
-  .then(res => {
-    console.log(res)
-    console.log(this);
-  })
+  .then(res => console.log(res));

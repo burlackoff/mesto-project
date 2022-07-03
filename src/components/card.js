@@ -30,7 +30,7 @@ export function createCard(cardData) {
 function setEventListner(like, trash, card, image, name, link, id) {
   like.addEventListener('click', () => {
     like.classList.toggle('card__like-button_active');
-    putLike(id)
+    putLike(id);
   });
   trash.addEventListener('click', () => {
     card.remove();
