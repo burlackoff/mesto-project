@@ -82,3 +82,18 @@ export function deleteCard(cardId) {
     }
   })
 }
+
+export function putLike(cardId) {
+  fetch(`https://nomoreparties.co/v1/${config.url}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: {
+      authorization: `${config.token}`
+    }
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+     return Promise.reject(`Ошибка ${res}`)
+  })
+}

@@ -1,6 +1,6 @@
 import {openPopup} from './modal.js';
 import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
-import {config, deleteCard} from './api.js'
+import {config, deleteCard, putLike} from './api.js'
 
 
 export function createCard(cardData) {
@@ -28,7 +28,10 @@ export function createCard(cardData) {
 };
 
 function setEventListner(like, trash, card, image, name, link, id) {
-  like.addEventListener('click', () => like.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
+  like.addEventListener('click', () => {
+    like.classList.toggle('card__like-button_active');
+    putLike(id)
+  });
   trash.addEventListener('click', () => {
     card.remove();
     deleteCard(id)
