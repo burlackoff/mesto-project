@@ -1,8 +1,9 @@
 import {nameProfile, professionProfile} from './utils.js'
 
-const config = {
+export const config = {
   url: 'plus-cohort-12',
-  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
+  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
+  userId: '94daa3f73b361f2df69c95ee'
 }
 
 export function getCards() {
@@ -71,4 +72,13 @@ export function creatNewCard(name, link) {
      return Promise.reject(`Ошибка ${res}`)
   })
   .catch(err => console.log(err))
+}
+
+export function deleteCard(cardId) {
+  fetch(`https://nomoreparties.co/v1/${config.url}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `${config.token}`
+    }
+  })
 }

@@ -1,3 +1,5 @@
+import {config} from './api.js'
+
 //Переменные модалки редактирования профиля
 export const popupInfo = document.querySelector('#popup_info');
 export const nameInput = popupInfo.querySelector('.popup__input_info_name');
@@ -17,7 +19,15 @@ export const closeButtonPopupCard = popupCard.querySelector('.popup__button');
 export const formPopupCard = popupCard.querySelector('.popup__form');
 export const popupImageName = popupCard.querySelector('.popup__input_name_image');
 export const popupImageUrl = popupCard.querySelector('.popup__input_src_image');  
-
+export const cardConfig = {
+  name: "",
+  link: "",
+  likes: [],
+  owner: {
+    _id: `${config.userId}`
+  },
+  _id: ""
+}
 //Переменные модалки просмотра картинки
 export const popupImage = document.querySelector('#popup_image');
 export const imageClick = popupImage.querySelector('.popup__image');

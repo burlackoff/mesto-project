@@ -1,4 +1,4 @@
-import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig, cardConfig} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
@@ -10,7 +10,7 @@ function appendCard(card) {
 }
 
 function renderInitialCards(arrayCard) {
-  arrayCard.forEach(item => appendCard(createCard(item.name, item.link)));
+  arrayCard.forEach(item => appendCard(createCard(item)));
 };
 
 function handleProfileEditFormSubmit(evt) {
@@ -23,17 +23,18 @@ function handleProfileEditFormSubmit(evt) {
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
-  appendCard(createCard(popupImageName.value, popupImageUrl.value)); //Вставка карточки
-  creatNewCard(popupImageName.value, popupImageUrl.value)
+  cardConfig.name = popupImageName.value;
+  cardConfig.link = popupImageUrl.value;
+  creatNewCard(cardConfig.name, cardConfig.link);
+  appendCard(createCard(cardConfig));
   closePopup(popupCard);
-  formPopupCard.reset(); //Обнуление формы модалки создания карточки
+  formPopupCard.reset();
 };
-
 
 enableValidation(valueConfig);
   
-formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit); //Обработчик отправки формы редактирования профиля
-formPopupCard.addEventListener('submit', handleCreatCardFromSubmit); //Обработчик отправки формы
+formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
+formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
 openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
   clearValidationFrom(popupCard, valueConfig);
@@ -46,8 +47,10 @@ openButtonPopupInfo.addEventListener('click', () => {
   clearValidationFrom(popupInfo, valueConfig);
 }); 
 
-
 getUser()
 
 getCards()
-  .then(res => renderInitialCards(res))
+  .then(cards => renderInitialCards(cards));
+
+getCards()
+  .then(res => console.log(res))
