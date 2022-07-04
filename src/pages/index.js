@@ -48,6 +48,10 @@ openButtonPopupInfo.addEventListener('click', () => {
 }); 
 
 getUser()
+  .then(data => {
+    nameProfile.textContent = data.name;
+    professionProfile.textContent = data.about;
+  })
 
 getCards()
   .then(cards => renderInitialCards(cards));

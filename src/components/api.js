@@ -23,16 +23,12 @@ export function getCards() {
 }
 
 export function getUser() {
-  fetch(`https://nomoreparties.co/v1/${config.url}/users/me`, {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/users/me`, {
   headers: {
     authorization: `${config.token}`
   }
   })
   .then(res => checkResponse(res))
-  .then(data => {
-    nameProfile.textContent = data.name;
-    professionProfile.textContent = data.about;
-  })
   .catch(err => console.log(err))
 }
 
