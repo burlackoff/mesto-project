@@ -78,8 +78,18 @@ export function deleteCard(cardId) {
 }
 
 export function putLike(cardId) {
-  fetch(`https://nomoreparties.co/v1/${config.url}/cards/likes/${cardId}`, {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/cards/likes/${cardId}`, {
     method: 'PUT',
+    headers: {
+      authorization: `${config.token}`
+    }
+  })
+  .then(res => checkPesponse(res))
+}
+
+export function deleteLike(cardId) {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/cards/likes/${cardId}`, {
+    method: 'DELETE',
     headers: {
       authorization: `${config.token}`
     }

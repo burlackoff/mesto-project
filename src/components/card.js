@@ -1,6 +1,6 @@
 import {openPopup} from './modal.js';
 import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
-import {config, deleteCard, putLike} from './api.js'
+import {config, deleteCard, deleteLike, putLike} from './api.js'
 
 
 export function createCard(cardData) {
@@ -22,15 +22,26 @@ export function createCard(cardData) {
   if (owner._id !== config.userId) {
     buttonTrash.remove()
   }
-
-  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id)
+  
+  if (likes.find((card) => card._id === config.userId)) {
+    buttonLike.classList.add('card__like-button_active');
+  }
+  
+  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id, countLikes)
   return templateElement;
 };
 
-function setEventListner(like, trash, card, image, name, link, id) {
+function setEventListner(like, trash, card, image, name, link, id, countLikes) {
   like.addEventListener('click', () => {
-    like.classList.toggle('card__like-button_active');
-    putLike(id);
+    if (like.classList.contains('card__like-button_active')) {
+      deleteLike(id)
+        .then(res => countLikes.textContent = res.likes.length)
+      like.classList.remove('card__like-button_active');
+    } else if (!like.classList.contains('card__like-button_active')) {
+      putLike(id)
+        .then(res => countLikes.textContent = res.likes.length)
+      like.classList.add('card__like-button_active');
+    }
   });
   trash.addEventListener('click', () => {
     card.remove();
