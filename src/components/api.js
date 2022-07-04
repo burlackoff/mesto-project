@@ -6,7 +6,7 @@ export const config = {
   userId: '94daa3f73b361f2df69c95ee'
 }
 
-function checkPesponse(res) {
+function checkResponse(res) {
   if (res.ok) {
     return res.json()
   }
@@ -19,7 +19,7 @@ export function getCards() {
     authorization: `${config.token}`
   }
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
 }
 
 export function getUser() {
@@ -28,7 +28,7 @@ export function getUser() {
     authorization: `${config.token}`
   }
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
   .then(data => {
     nameProfile.textContent = data.name;
     professionProfile.textContent = data.about;
@@ -48,7 +48,7 @@ export function patchUser(name, about) {
       about: about
     })
   })
-  .then(res => checkPesponse(res));
+  .then(res => checkResponse(res))
 }
 
 export function creatNewCard(name, link) {
@@ -63,7 +63,7 @@ export function creatNewCard(name, link) {
       link: `${link}`
     })
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
   .catch(err => console.log(err))
 }
 
@@ -74,7 +74,7 @@ export function deleteCard(cardId) {
       authorization: `${config.token}`
     }
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
 }
 
 export function putLike(cardId) {
@@ -84,7 +84,7 @@ export function putLike(cardId) {
       authorization: `${config.token}`
     }
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
 }
 
 export function deleteLike(cardId) {
@@ -94,5 +94,5 @@ export function deleteLike(cardId) {
       authorization: `${config.token}`
     }
   })
-  .then(res => checkPesponse(res))
+  .then(res => checkResponse(res))
 }
