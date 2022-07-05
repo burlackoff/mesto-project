@@ -1,8 +1,8 @@
-import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig, cardConfig} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser, patchUser, creatNewCard} from '../components/api.js'
+import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar} from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -17,8 +17,10 @@ function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   professionProfile.textContent = jobInput.value;
-  patchUser(nameInput.value, jobInput.value)
-  closePopup(popupInfo);
+  cardConfig.owner.name = nameInput.value;
+  cardConfig.owner.about = jobInput.value
+  patchUser(cardConfig.owner)
+  closePopup(popupInfo);  
 };
 
 function handleCreatCardFromSubmit(evt) {
@@ -35,6 +37,13 @@ enableValidation(valueConfig);
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
+formPopupAvatar.addEventListener('submit', (event) => {
+  event.preventDefault();
+  cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
+  patchUserAvatar(cardConfig.owner);
+  closePopup(popupAvatar);
+});
+
 openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
   clearValidationFrom(popupCard, valueConfig);
@@ -46,6 +55,14 @@ openButtonPopupInfo.addEventListener('click', () => {
   jobInput.value = professionProfile.textContent;
   clearValidationFrom(popupInfo, valueConfig);
 }); 
+openButtonPopupAvatar.addEventListener('click', () => {
+  openPopup(popupAvatar);
+  getUser()
+    .then(data => {
+      popupAvatarUrl.value = data.avatar;
+    })
+  clearValidationFrom(popupAvatar, valueConfig);
+})
 
 getUser()
   .then(data => {

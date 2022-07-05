@@ -19,20 +19,18 @@ export const closeButtonPopupCard = popupCard.querySelector('.popup__button');
 export const formPopupCard = popupCard.querySelector('.popup__form');
 export const popupImageName = popupCard.querySelector('.popup__input_name_image');
 export const popupImageUrl = popupCard.querySelector('.popup__input_src_image');  
-export const cardConfig = {
-  name: "",
-  link: "",
-  likes: [],
-  owner: {
-    _id: `${config.userId}`
-  },
-  _id: ""
-}
+
 //Переменные модалки просмотра картинки
 export const popupImage = document.querySelector('#popup_image');
 export const imageClick = popupImage.querySelector('.popup__image');
 export const imageSubtitle = popupImage.querySelector('.popup__subtitle');
 export const closeButtonPopupImage = popupImage.querySelector('.popup__button');
+
+export const popupAvatar = document.querySelector('#popup_avatar');
+export const openButtonPopupAvatar = document.querySelector('.profile__avatar-edit');
+export const closeButtonPopupAvatar = popupAvatar.querySelector('.popup__button');
+export const popupAvatarUrl = popupAvatar.querySelector('.popup__input_src_avatar');
+export const formPopupAvatar = popupAvatar.querySelector('.popup__form');
 
 export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;
@@ -44,4 +42,17 @@ export const valueConfig = {
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_active'
+}
+
+export const cardConfig = {
+  name: "",
+  link: "",
+  likes: [],
+  owner: {
+    name: "",
+    about: "",
+    avatar: "",
+    _id: `${config.userId}`
+  },
+  _id: ""
 }

@@ -30,16 +30,17 @@ export function getUser() {
   .catch(err => console.log(err))
 }
 
-export function patchUser(name, about) {
-  fetch(`https://nomoreparties.co/v1/${config.url}/users/me`, {
+export function patchUser(owner) {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/users/me`, {
     method: 'PATCH',
     headers: {
       authorization: `${config.token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      name: name,
-      about: about
+      name: owner.name,
+      about: owner.about,
+      avatar: `${owner.avatar}`
     })
   })
   .then(res => checkResponse(res))
@@ -87,6 +88,20 @@ export function deleteLike(cardId) {
     headers: {
       authorization: `${config.token}`
     }
+  })
+  .then(res => checkResponse(res))
+}
+
+export function patchUserAvatar(owner) {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: `${config.token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: `${owner.avatar}`
+    })
   })
   .then(res => checkResponse(res))
 }
