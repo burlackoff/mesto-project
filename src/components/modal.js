@@ -11,7 +11,6 @@ export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escClose);
   popup.removeEventListener('click', overlayClose);
-  clearValidationFrom(popup, valueConfig);
 }
 
 function escClose(event) {
@@ -28,5 +27,11 @@ function overlayClose(event) {
 }
 
 closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
-closeButtonPopupCard.addEventListener('click', () => closePopup(popupCard));
-closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo));
+closeButtonPopupCard.addEventListener('click', () => {
+  closePopup(popupCard);
+  clearValidationFrom(popupCard, valueConfig);
+});
+closeButtonPopupInfo.addEventListener('click', () => {
+  closePopup(popupInfo);
+  clearValidationFrom(popupInfo, valueConfig);
+});
