@@ -1,6 +1,6 @@
 import {formPopupInfo, formPopupCard, openButtonPopupCard, openButtonPopupInfo, popupInfo, popupCard, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, valueConfig, cardConfig} from '../components/utils.js'
 import {createCard} from '../components/card.js'
-import {enableValidation, clearValidationFrom} from '../components/validate.js'
+import {enableValidation} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
 import {getCards, getUser, patchUser, creatNewCard} from '../components/api.js'
 import './index.css';
@@ -37,14 +37,12 @@ formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
 openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
-  // clearValidationFrom(popupCard, valueConfig);
 });
 //Обработчик открытия модалки редактирования профиля
 openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo);
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
-  // clearValidationFrom(popupInfo, valueConfig);
 }); 
 
 getUser()
