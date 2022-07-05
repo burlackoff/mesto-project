@@ -1,5 +1,3 @@
-import {nameProfile, professionProfile} from './utils.js'
-
 export const config = {
   url: 'plus-cohort-12',
   token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
