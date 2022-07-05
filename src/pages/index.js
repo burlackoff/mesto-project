@@ -37,14 +37,14 @@ formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
 openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
-  clearValidationFrom(popupCard, valueConfig);
+  // clearValidationFrom(popupCard, valueConfig);
 });
 //Обработчик открытия модалки редактирования профиля
 openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo);
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
-  clearValidationFrom(popupInfo, valueConfig);
+  // clearValidationFrom(popupInfo, valueConfig);
 }); 
 
 getUser()

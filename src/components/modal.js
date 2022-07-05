@@ -1,4 +1,5 @@
-import {popupImage, popupCard, popupInfo, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo} from './utils.js'
+import {popupImage, popupCard, popupInfo, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig} from './utils.js'
+import {clearValidationFrom} from './validate.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -10,6 +11,7 @@ export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escClose);
   popup.removeEventListener('click', overlayClose);
+  clearValidationFrom(popup, valueConfig);
 }
 
 function escClose(event) {
