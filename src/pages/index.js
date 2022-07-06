@@ -5,6 +5,16 @@ import {closePopup, openPopup} from '../components/modal.js'
 import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar} from '../components/api.js'
 import './index.css';
 
+const promiseGetUser = getUser()
+  .then(data => {
+    nameProfile.textContent = data.name;
+    professionProfile.textContent = data.about;
+    avatarImage.src = data.avatar;
+  })
+
+const promiseGetCards = getCards()
+  .then(cards => renderInitialCards(cards));
+
 function appendCard(card) {
   listCards.prepend(card);
 }
@@ -74,11 +84,4 @@ openButtonPopupAvatar.addEventListener('click', () => {
 })
 
 enableValidation(valueConfig);
-
-Promise.all([getUser()
-  .then(data => {
-    nameProfile.textContent = data.name;
-    professionProfile.textContent = data.about;
-    avatarImage.src = data.avatar;
-  }), getCards()
-  .then(cards => renderInitialCards(cards))])
+Promise.all([promiseGetUser, promiseGetCards])
