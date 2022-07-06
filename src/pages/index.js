@@ -60,10 +60,7 @@ openButtonPopupInfo.addEventListener('click', () => {
 }); 
 openButtonPopupAvatar.addEventListener('click', () => {
   openPopup(popupAvatar);
-  getUser()
-    .then(data => {
-      popupAvatarUrl.value = data.avatar;
-    })
+  popupAvatarUrl.value = avatarImage.src;
   clearValidationFrom(popupAvatar, valueConfig);
 })
 
