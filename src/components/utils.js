@@ -31,6 +31,7 @@ export const openButtonPopupAvatar = document.querySelector('.profile__avatar-ed
 export const closeButtonPopupAvatar = popupAvatar.querySelector('.popup__button');
 export const popupAvatarUrl = popupAvatar.querySelector('.popup__input_src_avatar');
 export const formPopupAvatar = popupAvatar.querySelector('.popup__form');
+export const avatarImage = document.querySelector('.profile__avatar');
 
 export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;

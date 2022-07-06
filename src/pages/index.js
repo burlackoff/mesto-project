@@ -1,4 +1,4 @@
-import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
@@ -33,16 +33,19 @@ function handleCreatCardFromSubmit(evt) {
   formPopupCard.reset();
 };
 
+function handleAvatarEditSubmit(evt) {
+  evt.preventDefault();
+  cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
+  patchUserAvatar(cardConfig.owner);
+  closePopup(popupAvatar);
+  avatarImage.src = `${popupAvatarUrl.value}`;
+}
+
 enableValidation(valueConfig);
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
-formPopupAvatar.addEventListener('submit', (event) => {
-  event.preventDefault();
-  cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
-  patchUserAvatar(cardConfig.owner);
-  closePopup(popupAvatar);
-});
+formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
 
 openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
@@ -68,6 +71,7 @@ getUser()
   .then(data => {
     nameProfile.textContent = data.name;
     professionProfile.textContent = data.about;
+    avatarImage.src = data.avatar;
   })
 
 getCards()
