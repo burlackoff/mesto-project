@@ -51,8 +51,6 @@ function handleAvatarEditSubmit(evt) {
     .finally(() => buttonSubmit.textContent = 'Создать');
   avatarImage.src = popupAvatarUrl.value;
 }
-
-enableValidation(valueConfig);
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
@@ -62,7 +60,7 @@ openButtonPopupCard.addEventListener('click', () => {
   openPopup(popupCard);
   clearValidationFrom(popupCard, valueConfig);
 });
-//Обработчик открытия модалки редактирования профиля
+
 openButtonPopupInfo.addEventListener('click', () => {
   openPopup(popupInfo);
   nameInput.value = nameProfile.textContent;
@@ -75,15 +73,12 @@ openButtonPopupAvatar.addEventListener('click', () => {
   clearValidationFrom(popupAvatar, valueConfig);
 })
 
-getUser()
+enableValidation(valueConfig);
+
+Promise.all([getUser()
   .then(data => {
     nameProfile.textContent = data.name;
     professionProfile.textContent = data.about;
     avatarImage.src = data.avatar;
-  })
-
-getCards()
-  .then(cards => renderInitialCards(cards));
-
-getCards()
-  .then(res => console.log(res));
+  }), getCards()
+  .then(cards => renderInitialCards(cards))])

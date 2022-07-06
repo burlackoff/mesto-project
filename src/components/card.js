@@ -2,7 +2,6 @@ import {openPopup} from './modal.js';
 import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
 import {config, deleteCard, deleteLike, putLike} from './api.js'
 
-
 export function createCard(cardData) {
   const {name, link, likes, owner, _id} = cardData;
   const templateElement = getCardTemplate()
