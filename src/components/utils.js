@@ -33,6 +33,10 @@ export const popupAvatarUrl = popupAvatar.querySelector('.popup__input_src_avata
 export const formPopupAvatar = popupAvatar.querySelector('.popup__form');
 export const avatarImage = document.querySelector('.profile__avatar');
 
+export const popupDeleteCard = document.querySelector('#popup_delete-card');
+export const closeButtonPopupDeleteCard = popupDeleteCard.querySelector('.popup__button');
+export const formPopupDeleteCard = popupDeleteCard.querySelector('.popup__form');
+
 export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;
 

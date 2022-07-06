@@ -1,4 +1,4 @@
-import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig} from './utils.js'
+import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig, closeButtonPopupDeleteCard, popupDeleteCard} from './utils.js'
 import {clearValidationFrom} from './validate.js'
 
 export function openPopup(popup) {
@@ -39,3 +39,4 @@ closeButtonPopupAvatar.addEventListener('click', () => {
   closePopup(popupAvatar);
   clearValidationFrom(popupAvatar, valueConfig)
 })
+closeButtonPopupDeleteCard.addEventListener('click', () => closePopup(popupDeleteCard));

@@ -1,5 +1,5 @@
-import {openPopup} from './modal.js';
-import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
+import {closePopup, openPopup} from './modal.js';
+import {imageClick, imageSubtitle, popupImage, templateCard, popupDeleteCard, formPopupDeleteCard} from './utils.js';
 import {config, deleteCard, deleteLike, putLike} from './api.js'
 
 export function createCard(cardData) {
@@ -43,8 +43,12 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
     }
   });
   trash.addEventListener('click', () => {
-    deleteCard(id);
-    card.remove();
+    openPopup(popupDeleteCard);
+    formPopupDeleteCard.addEventListener('submit', () => {
+      deleteCard(id);
+      card.remove();
+      closePopup(popupDeleteCard);
+    })
   });
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки

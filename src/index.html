@@ -133,7 +133,7 @@
           alt="#"
           class="popup__image"
         />
-        <p class="popup__subtitle">text-content</p>
+        <p class="popup__subtitle"></p>
         <button
           class="popup__button"
           type="button"
@@ -160,6 +160,21 @@
               Создать
             </button>
           </fieldset>
+        </form>
+        <button
+          class="popup__button"
+          type="button"
+          aria-label="Закрыть окно."
+        ></button>
+      </div>
+    </div>
+    <div class="popup" id="popup_delete-card">
+      <div class="popup__container">
+        <form class="popup__form" novalidate>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button class="popup__submit" type="submit" aria-label="Да.">
+            Да
+          </button>
         </form>
         <button
           class="popup__button"
