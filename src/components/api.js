@@ -18,6 +18,7 @@ export function getCards() {
   }
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }
 
 export function getUser() {
@@ -44,10 +45,11 @@ export function patchUser(owner) {
     })
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }
 
 export function creatNewCard(name, link) {
-  fetch(`https://nomoreparties.co/v1/${config.url}/cards`, {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/cards`, {
     method: 'POST',
     headers: {
       authorization: `${config.token}`,
@@ -63,13 +65,14 @@ export function creatNewCard(name, link) {
 }
 
 export function deleteCard(cardId) {
-  fetch(`https://nomoreparties.co/v1/${config.url}/cards/${cardId}`, {
+  return fetch(`https://nomoreparties.co/v1/${config.url}/cards/${cardId}`, {
     method: 'DELETE',
     headers: {
       authorization: `${config.token}`
     }
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }
 
 export function putLike(cardId) {
@@ -80,6 +83,7 @@ export function putLike(cardId) {
     }
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }
 
 export function deleteLike(cardId) {
@@ -90,6 +94,7 @@ export function deleteLike(cardId) {
     }
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }
 
 export function patchUserAvatar(owner) {
@@ -104,4 +109,5 @@ export function patchUserAvatar(owner) {
     })
   })
   .then(res => checkResponse(res))
+  .catch(err => console.log(err))
 }

@@ -44,8 +44,8 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
     }
   });
   trash.addEventListener('click', () => {
+    deleteCard(id);
     card.remove();
-    deleteCard(id)
   });
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки

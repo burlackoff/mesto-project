@@ -19,26 +19,37 @@ function handleProfileEditFormSubmit(evt) {
   professionProfile.textContent = jobInput.value;
   cardConfig.owner.name = nameInput.value;
   cardConfig.owner.about = jobInput.value
+  const buttonSubmit = this.querySelector('.popup__submit');
+  buttonSubmit.textContent = 'Сохранение...';
   patchUser(cardConfig.owner)
-  closePopup(popupInfo);  
+    .then(() => closePopup(popupInfo))
+    .finally(() => buttonSubmit.textContent = 'Сохранить');
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
   cardConfig.name = popupImageName.value;
   cardConfig.link = popupImageUrl.value;
-  creatNewCard(cardConfig.name, cardConfig.link);
-  appendCard(createCard(cardConfig));
-  closePopup(popupCard);
+  const buttonSubmit = this.querySelector('.popup__submit');
+  buttonSubmit.textContent = 'Создание...';
+  creatNewCard(cardConfig.name, cardConfig.link)
+    .then(cardData => {
+      appendCard(createCard(cardData))
+      closePopup(popupCard);
+    })
+    .finally(() => buttonSubmit.textContent = 'Создать');
   formPopupCard.reset();
 };
 
 function handleAvatarEditSubmit(evt) {
   evt.preventDefault();
   cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
-  patchUserAvatar(cardConfig.owner);
-  closePopup(popupAvatar);
-  avatarImage.src = `${popupAvatarUrl.value}`;
+  const buttonSubmit = this.querySelector('.popup__submit');
+  buttonSubmit.textContent = 'Создание...';
+  patchUserAvatar(cardConfig.owner)
+    .then(() => closePopup(popupAvatar))
+    .finally(() => buttonSubmit.textContent = 'Создать');
+  avatarImage.src = popupAvatarUrl.value;
 }
 
 enableValidation(valueConfig);
