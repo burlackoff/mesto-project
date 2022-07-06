@@ -1,8 +1,11 @@
 import {openPopup} from './modal.js';
 import {imageClick, imageSubtitle, popupImage, templateCard} from './utils.js';
+import {config, deleteCard, deleteLike, putLike} from './api.js'
 
-export function createCard(name, link) {
+export function createCard(cardData) {
+  const {name, link, likes, owner, _id} = cardData;
   const templateElement = getCardTemplate()
+  const countLikes = templateElement.querySelector('.card__like-count');
   const buttonLike = templateElement.querySelector('.card__like-button');
   const buttonTrash = templateElement.querySelector('.card__trash-button');
   const image = templateElement.querySelector('.card__image');
@@ -10,15 +13,39 @@ export function createCard(name, link) {
   templateElement.querySelector('.card__title').textContent = name;
   image.src = link;
   image.alt = name;
-  
-  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link)
 
+  if (likes.length !== 0) {
+    countLikes.textContent = likes.length;
+  }
+
+  if (owner._id !== config.userId) {
+    buttonTrash.remove()
+  }
+  
+  if (likes.find((card) => card._id === config.userId)) {
+    buttonLike.classList.add('card__like-button_active');
+  }
+  
+  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id, countLikes)
   return templateElement;
 };
 
-function setEventListner(like, trash, card, image, name, link) {
-  like.addEventListener('click', () => like.classList.toggle('card__like-button_active')); //Добавление обработчика лайков
-  trash.addEventListener('click', () => card.remove()); //Добавление обработчика удаление карточки
+function setEventListner(like, trash, card, image, name, link, id, countLikes) {
+  like.addEventListener('click', () => {
+    if (like.classList.contains('card__like-button_active')) {
+      deleteLike(id)
+        .then(res => countLikes.textContent = res.likes.length)
+      like.classList.remove('card__like-button_active');
+    } else if (!like.classList.contains('card__like-button_active')) {
+      putLike(id)
+        .then(res => countLikes.textContent = res.likes.length)
+      like.classList.add('card__like-button_active');
+    }
+  });
+  trash.addEventListener('click', () => {
+    deleteCard(id);
+    card.remove();
+  });
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку

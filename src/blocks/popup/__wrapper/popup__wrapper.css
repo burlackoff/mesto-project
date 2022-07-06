@@ -1,5 +1,4 @@
 .popup__wrapper {
-  min-height: 84px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -15,11 +15,13 @@
     <main>
       <section class="profile">
         <div class="profile__block-wrapper">
-          <img
-            src="<%=require('./images/profile_avatar.jpg')%>"
-            alt="Аватарка."
-            class="profile__avatar"
-          />
+          <button class="profile__avatar-edit">
+            <img
+              src="<%=require('./images/profile_avatar.jpg')%>"
+              alt="Аватарка."
+              class="profile__avatar"
+            />
+          </button>
           <div class="profile__info">
             <div class="profile__name-block">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -109,9 +111,7 @@
                 placeholder="Ссылка на картинку"
                 required
               />
-              <span
-                class="link-card-error popup__error popup__error_active"
-              ></span>
+              <span class="link-card-error popup__error"></span>
             </div>
             <button class="popup__submit" type="submit" aria-label="Создать.">
               Создать
@@ -141,6 +141,33 @@
         ></button>
       </div>
     </div>
+    <div class="popup" id="popup_avatar">
+      <div class="popup__container">
+        <form class="popup__form" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <fieldset class="popup__info">
+            <div class="popup__wrapper">
+              <input
+                type="url"
+                id="link-card"
+                class="popup__input popup__input_src_avatar"
+                placeholder="Ссылка на аватарку"
+                required
+              />
+              <span class="link-card-error popup__error"></span>
+            </div>
+            <button class="popup__submit" type="submit" aria-label="Создать.">
+              Создать
+            </button>
+          </fieldset>
+        </form>
+        <button
+          class="popup__button"
+          type="button"
+          aria-label="Закрыть окно."
+        ></button>
+      </div>
+    </div>
     <template id="template_card">
       <li class="card__list">
         <article class="card">
@@ -151,11 +178,14 @@
           />
           <div class="card__info">
             <h2 class="card__title">Домбай</h2>
-            <button
-              class="card__like-button"
-              type="button"
-              aria-label="Поставь лайк."
-            ></button>
+            <div class="card__likes">
+              <button
+                class="card__like-button"
+                type="button"
+                aria-label="Поставь лайк."
+              ></button>
+              <span class="card__like-count">0</span>
+            </div>
           </div>
           <button
             class="card__trash-button"

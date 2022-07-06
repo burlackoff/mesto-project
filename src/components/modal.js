@@ -1,4 +1,5 @@
-import {popupImage, popupCard, popupInfo, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo} from './utils.js'
+import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig} from './utils.js'
+import {clearValidationFrom} from './validate.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -26,5 +27,15 @@ function overlayClose(event) {
 }
 
 closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
-closeButtonPopupCard.addEventListener('click', () => closePopup(popupCard));
-closeButtonPopupInfo.addEventListener('click', () => closePopup(popupInfo));
+closeButtonPopupCard.addEventListener('click', () => {
+  closePopup(popupCard);
+  clearValidationFrom(popupCard, valueConfig);
+});
+closeButtonPopupInfo.addEventListener('click', () => {
+  closePopup(popupInfo);
+  clearValidationFrom(popupInfo, valueConfig);
+});
+closeButtonPopupAvatar.addEventListener('click', () => {
+  closePopup(popupAvatar);
+  clearValidationFrom(popupAvatar, valueConfig)
+})
