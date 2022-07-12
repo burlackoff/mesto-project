@@ -52,9 +52,11 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
   trash.addEventListener('click', () => {
     openPopup(popupDeleteCard);
     formPopupDeleteCard.addEventListener('submit', () => {
-      deleteCard(id);
-      card.remove();
-      closePopup(popupDeleteCard);
+      deleteCard(id)
+      .then(() => {
+        card.remove();
+        closePopup(popupDeleteCard);
+      });
     })
   });
   image.addEventListener('click', () => {

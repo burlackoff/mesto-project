@@ -5,18 +5,6 @@ import {closePopup, openPopup} from '../components/modal.js'
 import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar} from '../components/api.js'
 import './index.css';
 
-const promiseGetUser = getUser()
-  .then(data => {
-    nameProfile.textContent = data.name;
-    professionProfile.textContent = data.about;
-    avatarImage.src = data.avatar;
-  })
-  .catch(err => console.log(err))
-
-const promiseGetCards = getCards()
-  .then(cards => renderInitialCards(cards))
-  .catch(err => console.log(err));
-
 function appendCard(card) {
   listCards.prepend(card);
 }
@@ -27,14 +15,16 @@ function renderInitialCards(arrayCard) {
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value;
   cardConfig.owner.name = nameInput.value;
   cardConfig.owner.about = jobInput.value
   const buttonSubmit = this.querySelector('.popup__submit');
   buttonSubmit.textContent = 'Сохранение...';
   patchUser(cardConfig.owner)
-    .then(() => closePopup(popupInfo))
+    .then(() => {
+      closePopup(popupInfo);
+      nameProfile.textContent = nameInput.value;
+      professionProfile.textContent = jobInput.value;
+    })
     .catch(err => console.log(err))
     .finally(() => buttonSubmit.textContent = 'Сохранить');
 };
@@ -49,10 +39,11 @@ function handleCreatCardFromSubmit(evt) {
     .then(cardData => {
       appendCard(createCard(cardData))
       closePopup(popupCard);
+      formPopupCard.reset();
     })
     .catch(err => console.log(err))
     .finally(() => buttonSubmit.textContent = 'Создать');
-  formPopupCard.reset();
+ 
 };
 
 function handleAvatarEditSubmit(evt) {
@@ -89,4 +80,11 @@ openButtonPopupAvatar.addEventListener('click', () => {
 })
 
 enableValidation(valueConfig);
-Promise.all([promiseGetUser, promiseGetCards])
+Promise.all([getUser(), getCards()])
+  .then(([user, cards]) => {
+    nameProfile.textContent = user.name;
+    professionProfile.textContent = user.about;
+    avatarImage.src = user.avatar;
+    renderInitialCards(cards)
+  })
+  .catch(err => console.log(err))
