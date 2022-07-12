@@ -6,6 +6,7 @@ export const nameInput = popupInfo.querySelector('.popup__input_info_name');
 export const jobInput = popupInfo.querySelector('.popup__input_info_profession');
 export const closeButtonPopupInfo = popupInfo.querySelector('.popup__button');
 export const formPopupInfo = popupInfo.querySelector('.popup__form');
+export const buttonSubmitInfo = popupInfo.querySelector('.popup__submit');
 
 //Переменные профиля
 export const openButtonPopupInfo = document.querySelector('.profile__edit');
@@ -18,7 +19,8 @@ export const openButtonPopupCard = document.querySelector('.profile__add');
 export const closeButtonPopupCard = popupCard.querySelector('.popup__button');
 export const formPopupCard = popupCard.querySelector('.popup__form');
 export const popupImageName = popupCard.querySelector('.popup__input_name_image');
-export const popupImageUrl = popupCard.querySelector('.popup__input_src_image');  
+export const popupImageUrl = popupCard.querySelector('.popup__input_src_image');
+export const buttonSubmitCard = popupCard.querySelector('.popup__submit');
 
 //Переменные модалки просмотра картинки
 export const popupImage = document.querySelector('#popup_image');
@@ -32,6 +34,7 @@ export const closeButtonPopupAvatar = popupAvatar.querySelector('.popup__button'
 export const popupAvatarUrl = popupAvatar.querySelector('.popup__input_src_avatar');
 export const formPopupAvatar = popupAvatar.querySelector('.popup__form');
 export const avatarImage = document.querySelector('.profile__avatar');
+export const buttonSubmitAvatar = popupAvatar.querySelector('.popup__submit');
 
 export const popupDeleteCard = document.querySelector('#popup_delete-card');
 export const closeButtonPopupDeleteCard = popupDeleteCard.querySelector('.popup__button');

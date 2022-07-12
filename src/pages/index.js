@@ -1,4 +1,4 @@
-import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage, buttonSubmitInfo, buttonSubmitCard, buttonSubmitAvatar} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
@@ -17,8 +17,7 @@ function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   cardConfig.owner.name = nameInput.value;
   cardConfig.owner.about = jobInput.value
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Сохранение...';
+  buttonSubmitInfo.textContent = 'Сохранение...';
   patchUser(cardConfig.owner)
     .then(() => {
       closePopup(popupInfo);
@@ -26,15 +25,14 @@ function handleProfileEditFormSubmit(evt) {
       professionProfile.textContent = jobInput.value;
     })
     .catch(err => console.log(err))
-    .finally(() => buttonSubmit.textContent = 'Сохранить');
+    .finally(() => buttonSubmitInfo.textContent = 'Сохранить');
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
   cardConfig.name = popupImageName.value;
   cardConfig.link = popupImageUrl.value;
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Создание...';
+  buttonSubmitCard.textContent = 'Создание...';
   creatNewCard(cardConfig.name, cardConfig.link)
     .then(cardData => {
       appendCard(createCard(cardData))
@@ -42,19 +40,18 @@ function handleCreatCardFromSubmit(evt) {
       formPopupCard.reset();
     })
     .catch(err => console.log(err))
-    .finally(() => buttonSubmit.textContent = 'Создать');
+    .finally(() => buttonSubmitCard.textContent = 'Создать');
  
 };
 
 function handleAvatarEditSubmit(evt) {
   evt.preventDefault();
   cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Создание...';
+  buttonSubmitAvatar.textContent = 'Создание...';
   patchUserAvatar(cardConfig.owner)
     .then(() => closePopup(popupAvatar))
     .catch(err => console.log(err))
-    .finally(() => buttonSubmit.textContent = 'Создать');
+    .finally(() => buttonSubmitAvatar.textContent = 'Создать');
   avatarImage.src = popupAvatarUrl.value;
 }
   
