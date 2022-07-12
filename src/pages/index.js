@@ -10,7 +10,7 @@ function appendCard(card) {
 }
 
 function renderInitialCards(arrayCard) {
-  arrayCard.forEach(item => appendCard(createCard(item)));
+  arrayCard.reverse().forEach(item => appendCard(createCard(item)));
 };
 
 function handleProfileEditFormSubmit(evt) {
