@@ -1,5 +1,4 @@
-import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig, closeButtonPopupDeleteCard, popupDeleteCard} from './utils.js'
-import {clearValidationFrom} from './validate.js'
+import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig, closeButtonPopupDeleteCard, popupDeleteCard, popups} from './utils.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -26,14 +25,10 @@ function overlayClose(event) {
   }
 }
 
-closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
-closeButtonPopupCard.addEventListener('click', () => {
-  closePopup(popupCard);
-});
-closeButtonPopupInfo.addEventListener('click', () => {
-  closePopup(popupInfo);
-});
-closeButtonPopupAvatar.addEventListener('click', () => {
-  closePopup(popupAvatar);
+popups.forEach(popup => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__button')) {
+      closePopup(popup)
+    }
+  })
 })
-closeButtonPopupDeleteCard.addEventListener('click', () => closePopup(popupDeleteCard));
