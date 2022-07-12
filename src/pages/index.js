@@ -49,10 +49,13 @@ function handleAvatarEditSubmit(evt) {
   cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
   buttonSubmitAvatar.textContent = 'Создание...';
   patchUserAvatar(cardConfig.owner)
-    .then(() => closePopup(popupAvatar))
+    .then(() => {
+      closePopup(popupAvatar);
+      avatarImage.src = popupAvatarUrl.value;
+    })
     .catch(err => console.log(err))
     .finally(() => buttonSubmitAvatar.textContent = 'Создать');
-  avatarImage.src = popupAvatarUrl.value;
+  
 }
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);

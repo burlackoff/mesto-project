@@ -29,14 +29,11 @@ function overlayClose(event) {
 closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
 closeButtonPopupCard.addEventListener('click', () => {
   closePopup(popupCard);
-  clearValidationFrom(popupCard, valueConfig);
 });
 closeButtonPopupInfo.addEventListener('click', () => {
   closePopup(popupInfo);
-  clearValidationFrom(popupInfo, valueConfig);
 });
 closeButtonPopupAvatar.addEventListener('click', () => {
   closePopup(popupAvatar);
-  clearValidationFrom(popupAvatar, valueConfig)
 })
 closeButtonPopupDeleteCard.addEventListener('click', () => closePopup(popupDeleteCard));

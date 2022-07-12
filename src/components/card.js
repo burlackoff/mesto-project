@@ -53,10 +53,11 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
     openPopup(popupDeleteCard);
     formPopupDeleteCard.addEventListener('submit', () => {
       deleteCard(id)
-      .then(() => {
-        card.remove();
-        closePopup(popupDeleteCard);
-      });
+        .then(() => {
+          card.remove();
+          closePopup(popupDeleteCard);
+        })
+        .catch(err => console.log(err));
     })
   });
   image.addEventListener('click', () => {
