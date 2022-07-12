@@ -18,7 +18,6 @@ export function getCards() {
   }
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function getUser() {
@@ -28,7 +27,6 @@ export function getUser() {
   }
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function patchUser(owner) {
@@ -45,7 +43,6 @@ export function patchUser(owner) {
     })
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function creatNewCard(name, link) {
@@ -61,7 +58,6 @@ export function creatNewCard(name, link) {
     })
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function deleteCard(cardId) {
@@ -72,7 +68,6 @@ export function deleteCard(cardId) {
     }
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function putLike(cardId) {
@@ -83,7 +78,6 @@ export function putLike(cardId) {
     }
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function deleteLike(cardId) {
@@ -94,7 +88,6 @@ export function deleteLike(cardId) {
     }
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }
 
 export function patchUserAvatar(owner) {
@@ -109,5 +102,4 @@ export function patchUserAvatar(owner) {
     })
   })
   .then(res => checkResponse(res))
-  .catch(err => console.log(err))
 }

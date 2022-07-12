@@ -11,9 +11,11 @@ const promiseGetUser = getUser()
     professionProfile.textContent = data.about;
     avatarImage.src = data.avatar;
   })
+  .catch(err => console.log(err))
 
 const promiseGetCards = getCards()
-  .then(cards => renderInitialCards(cards));
+  .then(cards => renderInitialCards(cards))
+  .catch(err => console.log(err));
 
 function appendCard(card) {
   listCards.prepend(card);
@@ -33,6 +35,7 @@ function handleProfileEditFormSubmit(evt) {
   buttonSubmit.textContent = 'Сохранение...';
   patchUser(cardConfig.owner)
     .then(() => closePopup(popupInfo))
+    .catch(err => console.log(err))
     .finally(() => buttonSubmit.textContent = 'Сохранить');
 };
 
@@ -47,6 +50,7 @@ function handleCreatCardFromSubmit(evt) {
       appendCard(createCard(cardData))
       closePopup(popupCard);
     })
+    .catch(err => console.log(err))
     .finally(() => buttonSubmit.textContent = 'Создать');
   formPopupCard.reset();
 };
@@ -58,6 +62,7 @@ function handleAvatarEditSubmit(evt) {
   buttonSubmit.textContent = 'Создание...';
   patchUserAvatar(cardConfig.owner)
     .then(() => closePopup(popupAvatar))
+    .catch(err => console.log(err))
     .finally(() => buttonSubmit.textContent = 'Создать');
   avatarImage.src = popupAvatarUrl.value;
 }

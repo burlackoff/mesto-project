@@ -35,10 +35,12 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
     if (like.classList.contains('card__like-button_active')) {
       deleteLike(id)
         .then(res => countLikes.textContent = res.likes.length)
+        .catch(err => console.log(err));
       like.classList.remove('card__like-button_active');
     } else if (!like.classList.contains('card__like-button_active')) {
       putLike(id)
         .then(res => countLikes.textContent = res.likes.length)
+        .catch(err => console.log(err))
       like.classList.add('card__like-button_active');
     }
   });
