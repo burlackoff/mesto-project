@@ -1,65 +1,61 @@
-import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage} from '../components/utils.js'
+import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage, buttonSubmitInfo, buttonSubmitCard, buttonSubmitAvatar} from '../components/utils.js'
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar} from '../components/api.js'
+import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar, config} from '../components/api.js'
 import './index.css';
-
-const promiseGetUser = getUser()
-  .then(data => {
-    nameProfile.textContent = data.name;
-    professionProfile.textContent = data.about;
-    avatarImage.src = data.avatar;
-  })
-
-const promiseGetCards = getCards()
-  .then(cards => renderInitialCards(cards));
 
 function appendCard(card) {
   listCards.prepend(card);
 }
 
 function renderInitialCards(arrayCard) {
-  arrayCard.forEach(item => appendCard(createCard(item)));
+  arrayCard.reverse().forEach(item => appendCard(createCard(item)));
 };
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value;
   cardConfig.owner.name = nameInput.value;
   cardConfig.owner.about = jobInput.value
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Сохранение...';
+  buttonSubmitInfo.textContent = 'Сохранение...';
   patchUser(cardConfig.owner)
-    .then(() => closePopup(popupInfo))
-    .finally(() => buttonSubmit.textContent = 'Сохранить');
+    .then(() => {
+      closePopup(popupInfo);
+      nameProfile.textContent = nameInput.value;
+      professionProfile.textContent = jobInput.value;
+    })
+    .catch(err => console.log(err))
+    .finally(() => buttonSubmitInfo.textContent = 'Сохранить');
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
   cardConfig.name = popupImageName.value;
   cardConfig.link = popupImageUrl.value;
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Создание...';
+  buttonSubmitCard.textContent = 'Создание...';
   creatNewCard(cardConfig.name, cardConfig.link)
     .then(cardData => {
-      appendCard(createCard(cardData))
+      appendCard(createCard(cardData));
       closePopup(popupCard);
+      formPopupCard.reset();
     })
-    .finally(() => buttonSubmit.textContent = 'Создать');
-  formPopupCard.reset();
+    .catch(err => console.log(err))
+    .finally(() => buttonSubmitCard.textContent = 'Создать');
+ 
 };
 
 function handleAvatarEditSubmit(evt) {
   evt.preventDefault();
   cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
-  const buttonSubmit = this.querySelector('.popup__submit');
-  buttonSubmit.textContent = 'Создание...';
+  buttonSubmitAvatar.textContent = 'Создание...';
   patchUserAvatar(cardConfig.owner)
-    .then(() => closePopup(popupAvatar))
-    .finally(() => buttonSubmit.textContent = 'Создать');
-  avatarImage.src = popupAvatarUrl.value;
+    .then(() => {
+      closePopup(popupAvatar);
+      avatarImage.src = popupAvatarUrl.value;
+    })
+    .catch(err => console.log(err))
+    .finally(() => buttonSubmitAvatar.textContent = 'Создать');
+  
 }
   
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
@@ -84,4 +80,12 @@ openButtonPopupAvatar.addEventListener('click', () => {
 })
 
 enableValidation(valueConfig);
-Promise.all([promiseGetUser, promiseGetCards])
+Promise.all([getUser(), getCards()])
+  .then(([user, cards]) => {
+    nameProfile.textContent = user.name;
+    professionProfile.textContent = user.about;
+    avatarImage.src = user.avatar;
+    config.userId = user._id;
+    renderInitialCards(cards);
+  })
+  .catch(err => console.log(err))

@@ -13,6 +13,7 @@ export function createCard(cardData) {
   templateElement.querySelector('.card__title').textContent = name;
   image.src = link;
   image.alt = name;
+  templateElement.dataset.id = _id;
 
   if (likes.length !== 0) {
     countLikes.textContent = likes.length;
@@ -25,31 +26,36 @@ export function createCard(cardData) {
   if (likes.find((card) => card._id === config.userId)) {
     buttonLike.classList.add('card__like-button_active');
   }
-  
-  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id, countLikes)
+
+  setEventListner(buttonLike, buttonTrash, image, name, link, _id, countLikes)
   return templateElement;
 };
 
-function setEventListner(like, trash, card, image, name, link, id, countLikes) {
+function setEventListner(like, trash, image, name, link, id, countLikes) {
   like.addEventListener('click', () => {
     if (like.classList.contains('card__like-button_active')) {
       deleteLike(id)
-        .then(res => countLikes.textContent = res.likes.length)
-      like.classList.remove('card__like-button_active');
+        .then(res => {
+          countLikes.textContent = res.likes.length;
+          like.classList.remove('card__like-button_active');
+        })
+        .catch(err => console.log(err));
+      
     } else if (!like.classList.contains('card__like-button_active')) {
       putLike(id)
-        .then(res => countLikes.textContent = res.likes.length)
-      like.classList.add('card__like-button_active');
+        .then(res => {
+          countLikes.textContent = res.likes.length;
+          like.classList.add('card__like-button_active');
+        })
+        .catch(err => console.log(err))
     }
   });
+
   trash.addEventListener('click', () => {
     openPopup(popupDeleteCard);
-    formPopupDeleteCard.addEventListener('submit', () => {
-      deleteCard(id);
-      card.remove();
-      closePopup(popupDeleteCard);
-    })
-  });
+    popupDeleteCard.dataset.id = id;
+  })
+
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку
@@ -62,3 +68,17 @@ function getCardTemplate() {
   const element = templateCard.querySelector('li').cloneNode(true);
   return  element;
 }
+
+function confirmDeleteCard(evt) {
+  evt.preventDefault();
+  const deletingId = popupDeleteCard.dataset.id
+  deleteCard(deletingId)
+    .then(() => {
+      document.querySelector(`.card__list[data-id="${deletingId}"]`).remove();
+      closePopup(popupDeleteCard);
+    })
+    .catch(err => console.log(err))
+    .finally(popupDeleteCard.dataset.id = '')
+}
+
+formPopupDeleteCard.addEventListener('submit', confirmDeleteCard);

@@ -1,13 +1,14 @@
-import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig, closeButtonPopupDeleteCard, popupDeleteCard} from './utils.js'
-import {clearValidationFrom} from './validate.js'
+import {popups, body} from './utils.js'
 
 export function openPopup(popup) {
+  body.style.overflow = 'hidden';
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClose)
   popup.addEventListener('click', overlayClose)
 }
 
 export function closePopup(popup) {
+  body.style.overflow = 'auto';
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escClose);
   popup.removeEventListener('click', overlayClose);
@@ -26,17 +27,10 @@ function overlayClose(event) {
   }
 }
 
-closeButtonPopupImage.addEventListener('click', () => closePopup(popupImage));
-closeButtonPopupCard.addEventListener('click', () => {
-  closePopup(popupCard);
-  clearValidationFrom(popupCard, valueConfig);
-});
-closeButtonPopupInfo.addEventListener('click', () => {
-  closePopup(popupInfo);
-  clearValidationFrom(popupInfo, valueConfig);
-});
-closeButtonPopupAvatar.addEventListener('click', () => {
-  closePopup(popupAvatar);
-  clearValidationFrom(popupAvatar, valueConfig)
+popups.forEach(popup => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__button')) {
+      closePopup(popup)
+    }
+  })
 })
-closeButtonPopupDeleteCard.addEventListener('click', () => closePopup(popupDeleteCard));
