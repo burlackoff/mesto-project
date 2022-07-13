@@ -1,7 +1,7 @@
 import {config} from './api.js'
 
 export const popups = document.querySelectorAll('.popup');
-
+export const body = document.querySelector('body');
 //Переменные модалки редактирования профиля
 export const popupInfo = document.querySelector('#popup_info');
 export const nameInput = popupInfo.querySelector('.popup__input_info_name');

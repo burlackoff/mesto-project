@@ -1,12 +1,14 @@
-import {popups} from './utils.js'
+import {popups, body} from './utils.js'
 
 export function openPopup(popup) {
+  body.style.overflow = 'hidden';
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClose)
   popup.addEventListener('click', overlayClose)
 }
 
 export function closePopup(popup) {
+  body.style.overflow = 'auto';
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escClose);
   popup.removeEventListener('click', overlayClose);
