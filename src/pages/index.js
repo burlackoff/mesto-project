@@ -2,7 +2,7 @@ import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, open
 import {createCard} from '../components/card.js'
 import {enableValidation, clearValidationFrom} from '../components/validate.js'
 import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar} from '../components/api.js'
+import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar, config} from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -85,6 +85,7 @@ Promise.all([getUser(), getCards()])
     nameProfile.textContent = user.name;
     professionProfile.textContent = user.about;
     avatarImage.src = user.avatar;
-    renderInitialCards(cards)
+    config.userId = user._id;
+    renderInitialCards(cards);
   })
   .catch(err => console.log(err))
