@@ -35,7 +35,7 @@ function handleCreatCardFromSubmit(evt) {
   buttonSubmitCard.textContent = 'Создание...';
   creatNewCard(cardConfig.name, cardConfig.link)
     .then(cardData => {
-      appendCard(createCard(cardData))
+      appendCard(createCard(cardData));
       closePopup(popupCard);
       formPopupCard.reset();
     })
