@@ -27,11 +27,11 @@ export function createCard(cardData) {
     buttonLike.classList.add('card__like-button_active');
   }
 
-  setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id, countLikes)
+  setEventListner(buttonLike, buttonTrash, image, name, link, _id, countLikes)
   return templateElement;
 };
 
-function setEventListner(like, trash, card, image, name, link, id, countLikes) {
+function setEventListner(like, trash, image, name, link, id, countLikes) {
   like.addEventListener('click', () => {
     if (like.classList.contains('card__like-button_active')) {
       deleteLike(id)
@@ -52,8 +52,8 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
   });
 
   trash.addEventListener('click', () => {
-    deleteCard(id)
-    card.remove()
+    openPopup(popupDeleteCard);
+    popupDeleteCard.dataset.id = id;
   })
 
   image.addEventListener('click', () => {
@@ -68,3 +68,17 @@ function getCardTemplate() {
   const element = templateCard.querySelector('li').cloneNode(true);
   return  element;
 }
+
+function confirmDeleteCard(evt) {
+  evt.preventDefault();
+  const deletingId = popupDeleteCard.dataset.id
+  deleteCard(deletingId)
+    .then(() => {
+      document.querySelector(`.card__list[data-id="${deletingId}"]`).remove();
+      closePopup(popupDeleteCard);
+    })
+    .catch(err => console.log(err))
+    .finally(popupDeleteCard.dataset.id = '')
+}
+
+formPopupDeleteCard.addEventListener('submit', confirmDeleteCard);
