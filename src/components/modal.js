@@ -1,4 +1,4 @@
-import {popupImage, popupCard, popupInfo, popupAvatar, closeButtonPopupAvatar, closeButtonPopupImage, closeButtonPopupCard, closeButtonPopupInfo, valueConfig, closeButtonPopupDeleteCard, popupDeleteCard, popups} from './utils.js'
+import {popups} from './utils.js'
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
