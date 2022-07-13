@@ -13,6 +13,7 @@ export function createCard(cardData) {
   templateElement.querySelector('.card__title').textContent = name;
   image.src = link;
   image.alt = name;
+  templateElement.dataset.id = _id;
 
   if (likes.length !== 0) {
     countLikes.textContent = likes.length;
@@ -25,7 +26,7 @@ export function createCard(cardData) {
   if (likes.find((card) => card._id === config.userId)) {
     buttonLike.classList.add('card__like-button_active');
   }
-  
+
   setEventListner(buttonLike, buttonTrash, templateElement, image, name, link, _id, countLikes)
   return templateElement;
 };
@@ -49,17 +50,12 @@ function setEventListner(like, trash, card, image, name, link, id, countLikes) {
         .catch(err => console.log(err))
     }
   });
+
   trash.addEventListener('click', () => {
-    openPopup(popupDeleteCard);
-    formPopupDeleteCard.addEventListener('submit', () => {
-      deleteCard(id)
-        .then(() => {
-          card.remove();
-          closePopup(popupDeleteCard);
-        })
-        .catch(err => console.log(err));
-    })
-  });
+    deleteCard(id)
+    card.remove()
+  })
+
   image.addEventListener('click', () => {
     openPopup(popupImage); //Открытие модалки
     imageClick.src = link; //Заменяем картинку
