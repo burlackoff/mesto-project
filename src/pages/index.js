@@ -2,7 +2,7 @@ import { formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, ope
 import { createCard } from '../components/card.js'
 import { enableValidation, clearValidationFrom } from '../components/validate.js'
 import { closePopup, openPopup } from '../components/modal.js'
-import { getCards, getUser, patchUser, creatNewCard, patchUserAvatar, config, Api } from '../components/api.js'
+import { patchUser, creatNewCard, patchUserAvatar, config, Api } from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -83,7 +83,8 @@ enableValidation(valueConfig);
 const configApi = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
   headers: {
-    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
+    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
+    'Content-Type': 'application/json' 
   }
 }
 const api = new Api(configApi);
