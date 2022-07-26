@@ -1,8 +1,8 @@
-import {formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage, buttonSubmitInfo, buttonSubmitCard, buttonSubmitAvatar} from '../components/utils.js'
-import {createCard} from '../components/card.js'
-import {enableValidation, clearValidationFrom} from '../components/validate.js'
-import {closePopup, openPopup} from '../components/modal.js'
-import {getCards, getUser, patchUser, creatNewCard, patchUserAvatar, config} from '../components/api.js'
+import { formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage, buttonSubmitInfo, buttonSubmitCard, buttonSubmitAvatar } from '../components/utils.js'
+import { createCard } from '../components/card.js'
+import { enableValidation, clearValidationFrom } from '../components/validate.js'
+import { closePopup, openPopup } from '../components/modal.js'
+import { getCards, getUser, patchUser, creatNewCard, patchUserAvatar, config, Api } from '../components/api.js'
 import './index.css';
 
 function appendCard(card) {
@@ -41,7 +41,7 @@ function handleCreatCardFromSubmit(evt) {
     })
     .catch(err => console.log(err))
     .finally(() => buttonSubmitCard.textContent = 'Создать');
- 
+
 };
 
 function handleAvatarEditSubmit(evt) {
@@ -55,9 +55,9 @@ function handleAvatarEditSubmit(evt) {
     })
     .catch(err => console.log(err))
     .finally(() => buttonSubmitAvatar.textContent = 'Создать');
-  
+
 }
-  
+
 formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
 formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
 formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
@@ -72,7 +72,7 @@ openButtonPopupInfo.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = professionProfile.textContent;
   clearValidationFrom(popupInfo, valueConfig);
-}); 
+});
 openButtonPopupAvatar.addEventListener('click', () => {
   openPopup(popupAvatar);
   popupAvatarUrl.value = avatarImage.src;
@@ -80,7 +80,16 @@ openButtonPopupAvatar.addEventListener('click', () => {
 })
 
 enableValidation(valueConfig);
-Promise.all([getUser(), getCards()])
+const configApi = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
+  headers: {
+    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
+  }
+}
+const api = new Api(configApi);
+const getUserApi = new Api(configApi);
+
+Promise.all([getUserApi.getUser(), api.getCards()])
   .then(([user, cards]) => {
     nameProfile.textContent = user.name;
     professionProfile.textContent = user.about;
