@@ -14,7 +14,7 @@ function appendCard(card) {
 
 function renderInitialCards(arrayCard) {
   arrayCard.reverse().forEach(item => {
-    const card = new Card(item, '#template_card', userId)
+    const card = new Card(item, '#template_card', userId, handelLikeCard)
     appendCard(card.createCard())
   });
 };
@@ -96,6 +96,7 @@ const configApi = {
 }
 const api = new Api(configApi);
 
+
 Promise.all([api.getUser(), api.getCards()])
   .then(([user, cards]) => {
     nameProfile.textContent = user.name;
@@ -105,3 +106,23 @@ Promise.all([api.getUser(), api.getCards()])
     renderInitialCards(cards);
   })
   .catch(err => console.log(err))
+
+
+const handelLikeCard = (like, id, countLikes) => {
+  if (like.classList.contains('card__like-button_active')) {
+    console.log('he');
+    api.deleteLike(id)
+      .then(res => {
+        console.log(res);
+        // countLikes.textContent = res.likes.length;
+        // like.classList.remove('card__like-button_active');
+      })
+      // .catch(err => console.log(err));
+  } else {
+    api.putLike(id)
+      .then(res => {
+        countLikes.textContent = res.likes.length;
+        like.classList.remove('card__like-button_active');
+      })
+  }
+}

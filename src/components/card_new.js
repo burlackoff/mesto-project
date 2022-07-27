@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({name, link, likes, owner, _id}, selector, userId) {
+  constructor({name, link, likes, owner, _id}, selector, userId, handelLikeCard, deleteCard, openPopup) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -7,13 +7,29 @@ export default class Card {
     this._id = _id;
     this._selector = selector;
     this._userId = userId;
-
+    this._handelLikeCard = handelLikeCard;
+    this._deleteCard = deleteCard;
+    this._openPopup = openPopup;
   }
 
   _getCardTemplate() {
     return document.querySelector(`${this._selector}`).content.querySelector('li').cloneNode(true)
   }
-    
+  
+  _setEventListener() {
+    this._buttonLike.addEventListener('click', () => {
+      this._handelLikeCard(this._buttonLike, this._id, this._countLike)
+    })
+
+    this._buttonTrash.addEventListener('click', () => {
+      this._deleteCard(this._element, this._id)
+    })
+
+    this._image.addEventListener('click', () => {
+      this._openPopup(this._element)
+    })
+  }
+
   createCard() {
     this._element = this._getCardTemplate();
     this._image = this._element.querySelector('.card__image');
@@ -37,6 +53,7 @@ export default class Card {
       this._buttonLike.classList.add('card__like-button_active');
     }
 
+    this._setEventListener()
     return this._element
   }
 }
