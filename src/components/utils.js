@@ -1,5 +1,6 @@
 import {config} from './api.js'
 
+export const userId = '';
 export const popups = document.querySelectorAll('.popup');
 export const body = document.querySelector('body');
 //Переменные модалки редактирования профиля

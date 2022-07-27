@@ -2,15 +2,21 @@ import { formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, ope
 import { createCard } from '../components/card.js'
 import { enableValidation, clearValidationFrom } from '../components/validate.js'
 import { closePopup, openPopup } from '../components/modal.js'
-import { patchUser, creatNewCard, patchUserAvatar, config, Api } from '../components/api.js'
+import { Api } from '../components/api.js'
+import Card from '../components/card_new.js'
 import './index.css';
+
+let userId = '';
 
 function appendCard(card) {
   listCards.prepend(card);
 }
 
 function renderInitialCards(arrayCard) {
-  arrayCard.reverse().forEach(item => appendCard(createCard(item)));
+  arrayCard.reverse().forEach(item => {
+    const card = new Card(item, '#template_card', userId)
+    appendCard(card.createCard())
+  });
 };
 
 function handleProfileEditFormSubmit(evt) {
@@ -80,6 +86,7 @@ openButtonPopupAvatar.addEventListener('click', () => {
 })
 
 enableValidation(valueConfig);
+
 const configApi = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
   headers: {
@@ -88,14 +95,13 @@ const configApi = {
   }
 }
 const api = new Api(configApi);
-const getUserApi = new Api(configApi);
 
-Promise.all([getUserApi.getUser(), api.getCards()])
+Promise.all([api.getUser(), api.getCards()])
   .then(([user, cards]) => {
     nameProfile.textContent = user.name;
     professionProfile.textContent = user.about;
     avatarImage.src = user.avatar;
-    config.userId = user._id;
+    userId = user._id;
     renderInitialCards(cards);
   })
   .catch(err => console.log(err))
