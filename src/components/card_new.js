@@ -20,14 +20,6 @@ export default class Card {
     this._buttonLike.addEventListener('click', () => {
       this._handelLikeCard(this._buttonLike, this._id, this._countLike)
     })
-
-    this._buttonTrash.addEventListener('click', () => {
-      this._deleteCard(this._element, this._id)
-    })
-
-    this._image.addEventListener('click', () => {
-      this._openPopup(this._element)
-    })
   }
 
   createCard() {

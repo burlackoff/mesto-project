@@ -110,19 +110,18 @@ Promise.all([api.getUser(), api.getCards()])
 
 const handelLikeCard = (like, id, countLikes) => {
   if (like.classList.contains('card__like-button_active')) {
-    console.log('he');
     api.deleteLike(id)
-      .then(res => {
-        console.log(res);
-        // countLikes.textContent = res.likes.length;
-        // like.classList.remove('card__like-button_active');
-      })
-      // .catch(err => console.log(err));
-  } else {
-    api.putLike(id)
       .then(res => {
         countLikes.textContent = res.likes.length;
         like.classList.remove('card__like-button_active');
       })
+      .catch(err => console.log(err));
+  } else if (!like.classList.contains('card__like-button_active')) {
+    api.putLike(id)
+      .then(res => {
+        countLikes.textContent = res.likes.length;
+        like.classList.add('card__like-button_active');
+      })
+      .catch(err => console.log(err));
   }
 }

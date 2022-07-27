@@ -11,18 +11,18 @@ export class Api {
     return Promise.reject(`Ошибка ${res}`)
   }
 
-  _getData(url, metod) {
+  _getData(url, method) {
     return fetch(`${this._baseUrl}/${url}`, {
-      metod: metod,
+      method: method,
       headers: this._headers
     })
     .then(this._checkResponse)
     .catch(err => console.log(err))
   }
 
-  _setData(url, metod, data) {
+  _setData(url, method, data) {
     return fetch(`${this._baseUrl}/${url}`, {
-      metod: metod,
+      method: method,
       headers: this._headers,
       body: JSON.stringify({data})
     })
