@@ -1,4 +1,4 @@
-import { formPopupInfo, formPopupCard, formPopupAvatar, openButtonPopupCard, openButtonPopupInfo, openButtonPopupAvatar, popupInfo, popupCard, popupAvatar, nameProfile, professionProfile, nameInput, jobInput, listCards, popupImageName, popupImageUrl, popupAvatarUrl, valueConfig, cardConfig, avatarImage, buttonSubmitInfo, buttonSubmitCard, buttonSubmitAvatar } from '../components/utils.js'
+import * as constants from '../components/utils.js'
 import { createCard } from '../components/card.js'
 import { enableValidation, clearValidationFrom } from '../components/validate.js'
 import { closePopup, openPopup } from '../components/modal.js'
@@ -9,83 +9,83 @@ import './index.css';
 let userId = '';
 
 function appendCard(card) {
-  listCards.prepend(card);
+  constants.listCards.prepend(card);
 }
 
 function renderInitialCards(arrayCard) {
   arrayCard.reverse().forEach(item => {
-    const card = new Card(item, '#template_card', userId, handelLikeCard)
+    const card = new Card(item, '#template_card', userId, handelLikeCard, deleteCard, openPopupCard)
     appendCard(card.createCard())
   });
 };
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
-  cardConfig.owner.name = nameInput.value;
-  cardConfig.owner.about = jobInput.value
-  buttonSubmitInfo.textContent = 'Сохранение...';
-  patchUser(cardConfig.owner)
+  constants.cardConfig.owner.name = nameInput.value;
+  constants.cardConfig.owner.about = jobInput.value
+  constants.buttonSubmitInfo.textContent = 'Сохранение...';
+  patchUser(constants.cardConfig.owner)
     .then(() => {
       closePopup(popupInfo);
-      nameProfile.textContent = nameInput.value;
-      professionProfile.textContent = jobInput.value;
+      constants.nameProfile.textContent = nameInput.value;
+      constants.professionProfile.textContent = jobInput.value;
     })
     .catch(err => console.log(err))
-    .finally(() => buttonSubmitInfo.textContent = 'Сохранить');
+    .finally(() => constants.buttonSubmitInfo.textContent = 'Сохранить');
 };
 
 function handleCreatCardFromSubmit(evt) {
   evt.preventDefault();
-  cardConfig.name = popupImageName.value;
-  cardConfig.link = popupImageUrl.value;
-  buttonSubmitCard.textContent = 'Создание...';
-  creatNewCard(cardConfig.name, cardConfig.link)
+  constants.cardConfig.name = constants.popupImageName.value;
+  constants.cardConfig.link = constants.popupImageUrl.value;
+  constants.buttonSubmitCard.textContent = 'Создание...';
+  creatNewCard(constants.cardConfig.name, constants.cardConfig.link)
     .then(cardData => {
       appendCard(createCard(cardData));
-      closePopup(popupCard);
-      formPopupCard.reset();
+      closePopup(constants.popupCard);
+      constants.formPopupCard.reset();
     })
     .catch(err => console.log(err))
-    .finally(() => buttonSubmitCard.textContent = 'Создать');
+    .finally(() => constants.buttonSubmitCard.textContent = 'Создать');
 
 };
 
 function handleAvatarEditSubmit(evt) {
   evt.preventDefault();
-  cardConfig.owner.avatar = `${popupAvatarUrl.value}`;
-  buttonSubmitAvatar.textContent = 'Создание...';
-  patchUserAvatar(cardConfig.owner)
+  constants.cardConfig.owner.avatar = `${constants.popupAvatarUrl.value}`;
+  constants.buttonSubmitAvatar.textContent = 'Создание...';
+  patchUserAvatar(constants.cardConfig.owner)
     .then(() => {
-      closePopup(popupAvatar);
-      avatarImage.src = popupAvatarUrl.value;
+      closePopup(constants.popupAvatar);
+      constants.avatarImage.src = constants.popupAvatarUrl.value;
     })
     .catch(err => console.log(err))
     .finally(() => buttonSubmitAvatar.textContent = 'Создать');
 
 }
 
-formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
-formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
-formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
+constants.formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
+constants.formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
+constants.formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
 
-openButtonPopupCard.addEventListener('click', () => {
-  openPopup(popupCard);
-  clearValidationFrom(popupCard, valueConfig);
+constants.openButtonPopupCard.addEventListener('click', () => {
+  openPopup(constants.popupCard);
+  clearValidationFrom(constants.popupCard, constants.valueConfig);
 });
 
-openButtonPopupInfo.addEventListener('click', () => {
-  openPopup(popupInfo);
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = professionProfile.textContent;
-  clearValidationFrom(popupInfo, valueConfig);
+constants.openButtonPopupInfo.addEventListener('click', () => {
+  openPopup(constants.popupInfo);
+  constants.nameInput.value = nameProfile.textContent;
+  constants.jobInput.value = professionProfile.textContent;
+  clearValidationFrom(constants.popupInfo, constants.valueConfig);
 });
-openButtonPopupAvatar.addEventListener('click', () => {
+constants.openButtonPopupAvatar.addEventListener('click', () => {
   openPopup(popupAvatar);
   popupAvatarUrl.value = avatarImage.src;
-  clearValidationFrom(popupAvatar, valueConfig);
+  clearValidationFrom(constants.popupAvatar, valueConfig);
 })
 
-enableValidation(valueConfig);
+enableValidation(constants.valueConfig);
 
 const configApi = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
@@ -99,9 +99,9 @@ const api = new Api(configApi);
 
 Promise.all([api.getUser(), api.getCards()])
   .then(([user, cards]) => {
-    nameProfile.textContent = user.name;
-    professionProfile.textContent = user.about;
-    avatarImage.src = user.avatar;
+    constants.nameProfile.textContent = user.name;
+    constants.professionProfile.textContent = user.about;
+    constants.avatarImage.src = user.avatar;
     userId = user._id;
     renderInitialCards(cards);
   })
@@ -124,4 +124,16 @@ const handelLikeCard = (like, id, countLikes) => {
       })
       .catch(err => console.log(err));
   }
+}
+
+const deleteCard = (id) => {
+  openPopup(constants.popupDeleteCard);
+  constants.popupDeleteCard.dataset.id = id;
+}
+
+const openPopupCard = (name, link) => {
+  openPopup(constants.popupImage);
+  constants.imageClick.src = link;
+  constants.imageClick.alt = name;
+  constants.imageSubtitle.textContent = name;
 }
