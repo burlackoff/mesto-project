@@ -10,12 +10,12 @@ let userId = '';
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
-  constants.cardConfig.owner.name = nameInput.value;
-  constants.cardConfig.owner.about = jobInput.value
+  constants.cardConfig.owner.name = constants.nameInput.value;
+  constants.cardConfig.owner.about = constants.jobInput.value
   constants.buttonSubmitInfo.textContent = 'Сохранение...';
   patchUser(constants.cardConfig.owner)
     .then(() => {
-      closePopup(popupInfo);
+      closePopup(constants.popupInfo);
       constants.nameProfile.textContent = nameInput.value;
       constants.professionProfile.textContent = jobInput.value;
     })
@@ -49,7 +49,7 @@ function handleAvatarEditSubmit(evt) {
       constants.avatarImage.src = constants.popupAvatarUrl.value;
     })
     .catch(err => console.log(err))
-    .finally(() => buttonSubmitAvatar.textContent = 'Создать');
+    .finally(() => constants.buttonSubmitAvatar.textContent = 'Создать');
 
 }
 
@@ -64,8 +64,8 @@ constants.openButtonPopupCard.addEventListener('click', () => {
 
 constants.openButtonPopupInfo.addEventListener('click', () => {
   openPopup(constants.popupInfo);
-  constants.nameInput.value = nameProfile.textContent;
-  constants.jobInput.value = professionProfile.textContent;
+  constants.nameInput.value = constants.nameProfile.textContent;
+  constants.jobInput.value = constants.professionProfile.textContent;
   clearValidationFrom(constants.popupInfo, constants.valueConfig);
 });
 constants.openButtonPopupAvatar.addEventListener('click', () => {
