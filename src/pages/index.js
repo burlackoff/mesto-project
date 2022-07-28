@@ -8,17 +8,6 @@ import './index.css';
 
 let userId = '';
 
-function appendCard(card) {
-  constants.listCards.prepend(card);
-}
-
-function renderInitialCards(arrayCard) {
-  arrayCard.reverse().forEach(item => {
-    const card = new Card(item, '#template_card', userId, handelLikeCard, deleteCard, openPopupCard)
-    appendCard(card.createCard())
-  });
-};
-
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
   constants.cardConfig.owner.name = nameInput.value;
@@ -126,14 +115,25 @@ const handelLikeCard = (like, id, countLikes) => {
   }
 }
 
-const deleteCard = (id) => {
+function deleteCard(id) {
   openPopup(constants.popupDeleteCard);
   constants.popupDeleteCard.dataset.id = id;
 }
 
-const openPopupCard = (name, link) => {
+function openPopupCard(name, link) {
   openPopup(constants.popupImage);
   constants.imageClick.src = link;
   constants.imageClick.alt = name;
   constants.imageSubtitle.textContent = name;
 }
+
+function appendCard(card) {
+  constants.listCards.prepend(card);
+}
+
+function renderInitialCards(arrayCard) {
+  arrayCard.reverse().forEach(item => {
+    const card = new Card(item, '#template_card', userId, handelLikeCard, deleteCard, openPopupCard)
+    appendCard(card.createCard())
+  });
+};
