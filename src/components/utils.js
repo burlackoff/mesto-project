@@ -42,7 +42,7 @@ export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;
 
 export const valueConfig = {
-  formSelector: '.popup__form',
+  // formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',

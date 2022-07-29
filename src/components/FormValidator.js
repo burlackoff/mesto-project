@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(data, form) {
     this._data = data;
     this._form = form;
+    this._inputList = [...this._form.querySelectorAll(this._data.inputSelector)];
+    this._buttonElement = this._form.querySelector(this._data.submitButtonSelector);
   }
 
   _isValid(inputElement) {
@@ -14,7 +16,7 @@ export default class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     this._errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-    this._errorElement.classList.add(this._data.errorClas);
+    this._errorElement.classList.add(this._data.errorClass);
     this._errorElement.textContent = errorMessage;
     inputElement.classList.add(this._data.inputErrorClass)
   }
@@ -40,13 +42,10 @@ export default class FormValidator {
   }
 
   _setEventListener() {
-    this._inputElements = this._form.querySelectorAll(this._data.inputSelector);
-    this._buttonElement = this._form.querySelector(this._data.submitButtonSelector);
-    this._inputList = Array.from(this._inputElements);
 
     this._toggleButtonState(this._inputList, this._buttonElement)
 
-    this._inputElements.forEach(input => {
+    this._inputList.forEach(input => {
       input.addEventListener('input', () => {
         this._isValid(input);
         this._toggleButtonState(this._inputList, this._buttonElement);
@@ -55,13 +54,21 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this._formElements = this._form.querySelector(this._data.formSelector);
-    this._formElements.forEach(formElement => {
+    this._inputList.forEach(formElement => {
       formElement.addEventListener('submit', evt => {
         evt.preventDefault()
       })
 
       this._setEventListener()
     })
+  }
+
+  clearValidationFrom() {
+    this._inputList.forEach((input) => {
+      this._errorMessage = this._form.querySelector(`.${input.id}-error`);
+      this._errorMessage.classList.remove(this._data.errorClass);
+      input.classList.remove(this._data.inputErrorClass);
+    });
+    this._buttonElement.classList.add(this._data.inactiveButtonClass);
   }
 }

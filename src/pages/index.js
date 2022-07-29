@@ -1,12 +1,17 @@
 import * as constants from '../components/utils.js'
 import { createCard } from '../components/card.js'
-import { enableValidation, clearValidationFrom } from '../components/validate.js'
 import { closePopup, openPopup } from '../components/modal.js'
 import { Api } from '../components/api.js'
 import Card from '../components/card_new.js'
+import FormValidator from '../components/FormValidator.js'
 import './index.css';
 
 let userId = '';
+const formValidAvatar = new FormValidator(constants.valueConfig, constants.formPopupAvatar);
+const formValidCard = new FormValidator(constants.valueConfig, constants.formPopupCard);
+const formValidProfile = new FormValidator(constants.valueConfig, constants.formPopupInfo);
+
+[formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
@@ -59,22 +64,20 @@ constants.formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
 
 constants.openButtonPopupCard.addEventListener('click', () => {
   openPopup(constants.popupCard);
-  clearValidationFrom(constants.popupCard, constants.valueConfig);
+  formValidCard.clearValidationFrom();
 });
 
 constants.openButtonPopupInfo.addEventListener('click', () => {
   openPopup(constants.popupInfo);
   constants.nameInput.value = constants.nameProfile.textContent;
   constants.jobInput.value = constants.professionProfile.textContent;
-  clearValidationFrom(constants.popupInfo, constants.valueConfig);
+  formValidProfile.clearValidationFrom();
 });
 constants.openButtonPopupAvatar.addEventListener('click', () => {
-  openPopup(popupAvatar);
-  popupAvatarUrl.value = avatarImage.src;
-  clearValidationFrom(constants.popupAvatar, valueConfig);
+  openPopup(constants.popupAvatar);
+  constants.popupAvatarUrl.value = constants.avatarImage.src;
+  formValidAvatar.clearValidationFrom();
 })
-
-enableValidation(constants.valueConfig);
 
 const configApi = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
