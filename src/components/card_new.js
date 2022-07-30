@@ -37,23 +37,13 @@ export default class Card {
     this._addEventListenerImage();
   }
 
-
-
-  createCard() {
-    this._element = Card._template.content.querySelector('li').cloneNode(true);
-    this._image = this._element.querySelector('.card__image');
-    this._countLike = this._element.querySelector('.card__like-count');
-    this._buttonLike = this._element.querySelector('.card__like-button');
-    this._buttonTrash = this._element.querySelector('.card__trash-button');
-    this._image.src = this._link;
-    this._image.alt = this._name;
-    this._element.dataset.id = this._id;
-    this._element.querySelector('.card__title').textContent = this._name;
-    
+  _compareId() {
     if (this._owner._id !== this._userId) {
       this._buttonTrash.remove()
     }
+  }
 
+  _renderLikes() {
     if (this._likes.length !== 0) {
       this._countLike.textContent = this._likes.length;
     }
@@ -61,6 +51,22 @@ export default class Card {
     if (this._likes.find((card) => card._id === this._userId)) {
       this._buttonLike.classList.add('card__like-button_active');
     }
+  }
+  
+
+  createCard() {
+    this._element = Card._template.content.querySelector('li').cloneNode(true);
+    this._image = this._element.querySelector('.card__image');
+    this._countLike = this._element.querySelector('.card__like-count');
+    this._buttonLike = this._element.querySelector('.card__like-button');
+    this._buttonTrash = this._element.querySelector('.card__trash-button');
+    this._element.querySelector('.card__title').textContent = this._name;
+    this._image.src = this._link;
+    this._image.alt = this._name;
+    this._element.dataset.id = this._id;
+    
+    this._compareId();
+    this._renderLikes();
 
     this._setEventListener()
     return this._element
