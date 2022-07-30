@@ -1,9 +1,10 @@
 import * as constants from '../components/utils.js'
 import { createCard } from '../components/card.js'
 import { closePopup, openPopup } from '../components/modal.js'
-import { Api } from '../components/api.js'
+import Api from '../components/api.js'
 import Card from '../components/card_new.js'
 import FormValidator from '../components/FormValidator.js'
+import Section from '../components/Section.js'
 import './index.css';
 
 let userId = '';
@@ -21,8 +22,8 @@ function handleProfileEditFormSubmit(evt) {
   patchUser(constants.cardConfig.owner)
     .then(() => {
       closePopup(constants.popupInfo);
-      constants.nameProfile.textContent = nameInput.value;
-      constants.professionProfile.textContent = jobInput.value;
+      constants.nameProfile.textContent = constants.nameInput.value;
+      constants.professionProfile.textContent = constants.jobInput.value;
     })
     .catch(err => console.log(err))
     .finally(() => constants.buttonSubmitInfo.textContent = 'Сохранить');
@@ -95,7 +96,10 @@ Promise.all([api.getUser(), api.getCards()])
     constants.professionProfile.textContent = user.about;
     constants.avatarImage.src = user.avatar;
     userId = user._id;
-    renderInitialCards(cards);
+    console.log(cards);
+    const sec = new Section({items: cards, renderer: renderer}, '.cards__list')
+    sec.rendererItems()
+    // renderInitialCards(cards);
   })
   .catch(err => console.log(err))
 
@@ -126,13 +130,7 @@ function openPopupCard(name, link) {
   constants.imageSubtitle.textContent = name;
 }
 
-function appendCard(card) {
-  constants.listCards.prepend(card);
+function renderer(item) {
+  const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard);
+  return card.createCard()
 }
-
-function renderInitialCards(arrayCard) {
-  arrayCard.reverse().forEach(item => {
-    const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard)
-    appendCard(card.createCard())
-  });
-};

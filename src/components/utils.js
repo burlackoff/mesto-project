@@ -1,6 +1,3 @@
-import {config} from './api.js'
-
-export const userId = '';
 export const popups = document.querySelectorAll('.popup');
 export const body = document.querySelector('body');
 //Переменные модалки редактирования профиля
@@ -42,12 +39,16 @@ export const listCards = document.querySelector('.cards__list');
 export const templateCard = document.querySelector('#template_card').content;
 
 export const valueConfig = {
-  // formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_active'
+}
+
+const config = {
+  url: 'https://nomoreparties.co/v1/plus-cohort-12',
+  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
 }
 
 export const cardConfig = {

@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
   constructor(data) {
     this._baseUrl = data.baseUrl;
     this._headers = data.headers;
@@ -61,9 +61,4 @@ export class Api {
   patchUserAvatar() {
     return this._setData('users/me/avatar', 'PATCH', data)
   }
-}
-
-export const config = {
-  url: 'https://nomoreparties.co/v1/plus-cohort-12',
-  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
 }
