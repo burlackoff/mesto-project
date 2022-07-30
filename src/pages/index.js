@@ -7,6 +7,7 @@ import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
 import './index.css';
+import PopupWithImage from '../components/PopupWithImage.js'
 
 
 let userId = '';
@@ -16,7 +17,7 @@ const formValidProfile = new FormValidator(constants.valueConfig, constants.form
 
 [formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
 
-const popupAva = new Popup('#popup_avatar')
+const popupAva = new Popup('#popup_avatar');
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
@@ -125,11 +126,11 @@ function deleteCard(id) {
   constants.popupDeleteCard.dataset.id = id;
 }
 
+
+const popupImageClass = new PopupWithImage('#popup_image');
+
 function openPopupCard(name, link) {
-  openPopup(constants.popupImage);
-  constants.imageClick.src = link;
-  constants.imageClick.alt = name;
-  constants.imageSubtitle.textContent = name;
+  popupImageClass.openPopup(name, link)
 }
 
 function renderer(item) {
