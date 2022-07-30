@@ -1,19 +1,16 @@
 export default class Card {
-  constructor({name, link, likes, owner, _id}, selector, userId, handelLikeCard, deleteCard, openPopupCard) {
+  static _template = document.querySelector('#template_card');
+
+  constructor({name, link, likes, owner, _id}, userId, handelLikeCard, deleteCard, openPopupCard) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._owner = owner;
     this._id = _id;
-    this._selector = selector;
     this._userId = userId;
     this._handelLikeCard = handelLikeCard;
     this._deleteCard = deleteCard;
     this._openPopupCard = openPopupCard;
-  }
-
-  _getCardTemplate() {
-    return document.querySelector(`${this._selector}`).content.querySelector('li').cloneNode(true)
   }
   
   _setEventListener() {
@@ -29,7 +26,7 @@ export default class Card {
   }
 
   createCard() {
-    this._element = this._getCardTemplate();
+    this._element = Card._template.content.querySelector('li').cloneNode(true);
     this._image = this._element.querySelector('.card__image');
     this._countLike = this._element.querySelector('.card__like-count');
     this._buttonLike = this._element.querySelector('.card__like-button');

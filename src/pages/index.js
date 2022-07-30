@@ -136,7 +136,7 @@ function appendCard(card) {
 
 function renderInitialCards(arrayCard) {
   arrayCard.reverse().forEach(item => {
-    const card = new Card(item, '#template_card', userId, handelLikeCard, deleteCard, openPopupCard)
+    const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard)
     appendCard(card.createCard())
   });
 };
