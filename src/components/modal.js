@@ -1,4 +1,4 @@
-import {popups, body} from './utils.js'
+import { body} from './utils.js'
 
 export function openPopup(popup) {
   body.style.overflow = 'hidden';
@@ -27,10 +27,10 @@ function overlayClose(event) {
   }
 }
 
-popups.forEach(popup => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup__button')) {
-      closePopup(popup)
-    }
-  })
-})
+// popups.forEach(popup => {
+//   popup.addEventListener('click', (evt) => {
+//     if (evt.target.classList.contains('popup__button')) {
+//       closePopup(popup)
+//     }
+//   })
+// })

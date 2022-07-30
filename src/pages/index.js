@@ -5,7 +5,9 @@ import Api from '../components/api.js'
 import Card from '../components/card_new.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
+import Popup from '../components/Popup.js'
 import './index.css';
+
 
 let userId = '';
 const formValidAvatar = new FormValidator(constants.valueConfig, constants.formPopupAvatar);
@@ -13,6 +15,8 @@ const formValidCard = new FormValidator(constants.valueConfig, constants.formPop
 const formValidProfile = new FormValidator(constants.valueConfig, constants.formPopupInfo);
 
 [formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
+
+const popupAva = new Popup('#popup_avatar')
 
 function handleProfileEditFormSubmit(evt) {
   evt.preventDefault();
@@ -51,7 +55,7 @@ function handleAvatarEditSubmit(evt) {
   constants.buttonSubmitAvatar.textContent = 'Создание...';
   patchUserAvatar(constants.cardConfig.owner)
     .then(() => {
-      closePopup(constants.popupAvatar);
+      popupAva.closePopup();
       constants.avatarImage.src = constants.popupAvatarUrl.value;
     })
     .catch(err => console.log(err))
@@ -75,7 +79,7 @@ constants.openButtonPopupInfo.addEventListener('click', () => {
   formValidProfile.clearValidationFrom();
 });
 constants.openButtonPopupAvatar.addEventListener('click', () => {
-  openPopup(constants.popupAvatar);
+  popupAva.openPopup()
   constants.popupAvatarUrl.value = constants.avatarImage.src;
   formValidAvatar.clearValidationFrom();
 })
@@ -96,10 +100,8 @@ Promise.all([api.getUser(), api.getCards()])
     constants.professionProfile.textContent = user.about;
     constants.avatarImage.src = user.avatar;
     userId = user._id;
-    console.log(cards);
     const sec = new Section({items: cards, renderer: renderer}, '.cards__list')
     sec.rendererItems()
-    // renderInitialCards(cards);
   })
   .catch(err => console.log(err))
 
