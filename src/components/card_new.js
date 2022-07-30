@@ -13,17 +13,31 @@ export default class Card {
     this._openPopupCard = openPopupCard;
   }
   
-  _setEventListener() {
+  _addEventListenerButtonLike() {
     this._buttonLike.addEventListener('click', () => {
       this._handelLikeCard(this._buttonLike, this._id, this._countLike)
     })
+  }
+
+  _addEventListenerButtonTrash() {
     this._buttonTrash.addEventListener('click', () => {
       this._deleteCard(this._id)
     })
+  }
+
+  _addEventListenerImage() {
     this._image.addEventListener('click', () => {
       this._openPopupCard(this._name, this._link)
     })
   }
+
+  _setEventListener() {
+    this._addEventListenerButtonLike();
+    this._addEventListenerButtonTrash();
+    this._addEventListenerImage();
+  }
+
+
 
   createCard() {
     this._element = Card._template.content.querySelector('li').cloneNode(true);
