@@ -100,21 +100,17 @@ Promise.all([api.getUser(), api.getCards()])
   .catch(err => console.log(err))
 
 
-const handelLikeCard = (like, id, countLikes) => {
+function handelLikeCard(like, id) {
   if (like.classList.contains('card__like-button_active')) {
     api.deleteLike(id)
-      .then(res => {
-        countLikes.textContent = res.likes.length;
-        like.classList.remove('card__like-button_active');
-      })
-      .catch(err => console.log(err));
+      .then(res => this._deleteLike(res))
+      .catch(err => console.log(err))
   } else if (!like.classList.contains('card__like-button_active')) {
     api.putLike(id)
       .then(res => {
-        countLikes.textContent = res.likes.length;
-        like.classList.add('card__like-button_active');
+        this._addLike(res)
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 }
 

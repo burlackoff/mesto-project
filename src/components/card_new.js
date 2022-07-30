@@ -13,9 +13,19 @@ export default class Card {
     this._openPopupCard = openPopupCard;
   }
   
+  _addLike(res) {
+    this._countLike.textContent = res.likes.length;
+    this._buttonLike.classList.add('card__like-button_active');
+  }
+
+  _deleteLike(res) {
+    this._countLike.textContent = res.likes.length;
+    this._buttonLike.classList.remove('card__like-button_active');
+  }
+
   _addEventListenerButtonLike() {
     this._buttonLike.addEventListener('click', () => {
-      this._handelLikeCard(this._buttonLike, this._id, this._countLike)
+      this._handelLikeCard(this._buttonLike, this._id)
     })
   }
 
@@ -44,10 +54,6 @@ export default class Card {
   }
 
   _renderLikes() {
-    if (this._likes.length !== 0) {
-      this._countLike.textContent = this._likes.length;
-    }
-
     if (this._likes.find((card) => card._id === this._userId)) {
       this._buttonLike.classList.add('card__like-button_active');
     }
@@ -63,6 +69,7 @@ export default class Card {
     this._element.querySelector('.card__title').textContent = this._name;
     this._image.src = this._link;
     this._image.alt = this._name;
+    this._countLike.textContent = this._likes.length;
     this._element.dataset.id = this._id;
     
     this._compareId();
