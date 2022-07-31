@@ -24,7 +24,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/${url}`, {
       method: method,
       headers: this._headers,
-      body: JSON.stringify({data})
+      body: JSON.stringify(data)
     })
     .then(this._checkResponse)
     .catch(err => console.log(err))
@@ -38,11 +38,11 @@ export default class Api {
     return this._getData('users/me', 'GET')
   }
 
-  patchUser() {
+  patchUser(data) {
     return this._setData('users/me', 'PATCH', data)
   }
 
-  creatNewCard() {
+  creatNewCard(data) {
     return this._setData('cards', 'POST', data)
   }
 
@@ -58,7 +58,7 @@ export default class Api {
     return this._getData(`cards/likes/${id}`, 'DELETE')
   }
 
-  patchUserAvatar() {
+  patchUserAvatar(data) {
     return this._setData('users/me/avatar', 'PATCH', data)
   }
 }

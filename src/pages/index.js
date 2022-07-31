@@ -6,9 +6,9 @@ import Card from '../components/card_new.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
-import './index.css';
 import PopupWithImage from '../components/PopupWithImage.js'
-
+import PopupWithForm from '../components/PopupWithForm.js'
+import './index.css';
 
 let userId = '';
 const formValidAvatar = new FormValidator(constants.valueConfig, constants.formPopupAvatar);
@@ -18,37 +18,54 @@ const formValidProfile = new FormValidator(constants.valueConfig, constants.form
 [formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
 
 const popupAva = new Popup('#popup_avatar');
+const popupItem = new PopupWithForm('#popup_info', handleSubmit)
 
-function handleProfileEditFormSubmit(evt) {
-  evt.preventDefault();
-  constants.cardConfig.owner.name = constants.nameInput.value;
-  constants.cardConfig.owner.about = constants.jobInput.value
-  constants.buttonSubmitInfo.textContent = 'Сохранение...';
-  patchUser(constants.cardConfig.owner)
-    .then(() => {
-      closePopup(constants.popupInfo);
-      constants.nameProfile.textContent = constants.nameInput.value;
-      constants.professionProfile.textContent = constants.jobInput.value;
+popupItem.setEventListener()
+
+function handleSubmit({nameProfile, professionProfile}) {
+  constants.cardConfig.owner.name = nameProfile;
+  constants.cardConfig.owner.about = professionProfile;
+  console.log(constants.cardConfig);
+
+  api.patchUser(constants.cardConfig.owner)
+    .then((res) => {
+      this.closePopup()
+      constants.nameProfile.textContent = res.name;
+      constants.professionProfile.textContent = res.about;
     })
-    .catch(err => console.log(err))
-    .finally(() => constants.buttonSubmitInfo.textContent = 'Сохранить');
-};
+    .catch(res => console.log(res));
+}
 
-function handleCreatCardFromSubmit(evt) {
-  evt.preventDefault();
-  constants.cardConfig.name = constants.popupImageName.value;
-  constants.cardConfig.link = constants.popupImageUrl.value;
-  constants.buttonSubmitCard.textContent = 'Создание...';
-  creatNewCard(constants.cardConfig.name, constants.cardConfig.link)
-    .then(cardData => {
-      appendCard(createCard(cardData));
-      closePopup(constants.popupCard);
-      constants.formPopupCard.reset();
-    })
-    .catch(err => console.log(err))
-    .finally(() => constants.buttonSubmitCard.textContent = 'Создать');
+// function handleProfileEditFormSubmit(evt) {
+//   evt.preventDefault();
+//   constants.cardConfig.owner.name = constants.nameInput.value;
+//   constants.cardConfig.owner.about = constants.jobInput.value
+//   constants.buttonSubmitInfo.textContent = 'Сохранение...';
+//   patchUser(constants.cardConfig.owner)
+//     .then(() => {
+//       closePopup(constants.popupInfo);
+//       constants.nameProfile.textContent = constants.nameInput.value;
+//       constants.professionProfile.textContent = constants.jobInput.value;
+//     })
+//     .catch(err => console.log(err))
+//     .finally(() => constants.buttonSubmitInfo.textContent = 'Сохранить');
+// };
 
-};
+// function handleCreatCardFromSubmit(evt) {
+//   evt.preventDefault();
+//   constants.cardConfig.name = constants.popupImageName.value;
+//   constants.cardConfig.link = constants.popupImageUrl.value;
+//   constants.buttonSubmitCard.textContent = 'Создание...';
+//   creatNewCard(constants.cardConfig.name, constants.cardConfig.link)
+//     .then(cardData => {
+//       appendCard(createCard(cardData));
+//       closePopup(constants.popupCard);
+//       constants.formPopupCard.reset();
+//     })
+//     .catch(err => console.log(err))
+//     .finally(() => constants.buttonSubmitCard.textContent = 'Создать');
+
+// };
 
 function handleAvatarEditSubmit(evt) {
   evt.preventDefault();
@@ -64,26 +81,26 @@ function handleAvatarEditSubmit(evt) {
 
 }
 
-constants.formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
-constants.formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
-constants.formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
+// constants.formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
+// constants.formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
+// constants.formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
 
-constants.openButtonPopupCard.addEventListener('click', () => {
-  openPopup(constants.popupCard);
-  formValidCard.clearValidationFrom();
-});
+// constants.openButtonPopupCard.addEventListener('click', () => {
+//   openPopup(constants.popupCard);
+//   formValidCard.clearValidationFrom();
+// });
 
-constants.openButtonPopupInfo.addEventListener('click', () => {
-  openPopup(constants.popupInfo);
-  constants.nameInput.value = constants.nameProfile.textContent;
-  constants.jobInput.value = constants.professionProfile.textContent;
-  formValidProfile.clearValidationFrom();
-});
-constants.openButtonPopupAvatar.addEventListener('click', () => {
-  popupAva.openPopup()
-  constants.popupAvatarUrl.value = constants.avatarImage.src;
-  formValidAvatar.clearValidationFrom();
-})
+// constants.openButtonPopupInfo.addEventListener('click', () => {
+//   openPopup(constants.popupInfo);
+//   constants.nameInput.value = constants.nameProfile.textContent;
+//   constants.jobInput.value = constants.professionProfile.textContent;
+//   formValidProfile.clearValidationFrom();
+// });
+// constants.openButtonPopupAvatar.addEventListener('click', () => {
+//   popupAva.openPopup()
+//   constants.popupAvatarUrl.value = constants.avatarImage.src;
+//   formValidAvatar.clearValidationFrom();
+// })
 
 const configApi = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
