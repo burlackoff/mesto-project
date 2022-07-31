@@ -1,6 +1,4 @@
 import * as constants from '../components/utils.js'
-import { createCard } from '../components/card.js'
-import { closePopup, openPopup } from '../components/modal.js'
 import Api from '../components/api.js'
 import Card from '../components/card_new.js'
 import FormValidator from '../components/FormValidator.js'
