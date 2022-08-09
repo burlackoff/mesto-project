@@ -48,13 +48,13 @@ export default class Card {
   }
 
   _compareId() {
-    if (this._owner._id !== this._userId) {
+    if (this._owner._id !== this._userId._id) {
       this._buttonTrash.remove()
     }
   }
 
   statusLike() {
-    return (this.likes.find((card) => card._id === this._userId))
+    return (this.likes.find((card) => card._id === this._userId._id))
   }
 
   createCard() {
