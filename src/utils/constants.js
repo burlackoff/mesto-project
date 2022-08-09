@@ -11,6 +11,7 @@ export const openButtonPopupAvatar = document.querySelector('.profile__avatar-ed
 export const formPopupAvatar = popupAvatar.querySelector('.popup__form');
 export const popupDeleteCard = document.querySelector('#popup_delete-card');
 export const formPopupDeleteCard = popupDeleteCard.querySelector('.popup__form');
+export const userId = {};
 
 export const valueConfig = {
   inputSelector: '.popup__input',

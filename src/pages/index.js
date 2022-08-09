@@ -16,7 +16,6 @@ const popupAvatar = new PopupWithForm('#popup_avatar', handelSubmitAvatar);
 const popupImage = new PopupWithImage('#popup_image');
 const popupDeleteCard = new PopupWithDeleteCard('#popup_delete-card', submitDeleteCard);
 
-let userId = '';
 const formValidAvatar = new FormValidator(constants.valueConfig, constants.formPopupAvatar);
 const formValidCard = new FormValidator(constants.valueConfig, constants.formPopupCard);
 const formValidProfile = new FormValidator(constants.valueConfig, constants.formPopupInfo);
@@ -74,7 +73,7 @@ function openPopupCard(name, link) {
 }
 
 function renderer(item) {
-  const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard);
+  const card = new Card(item, constants.userId, handelLikeCard, deleteCard, openPopupCard);
   return card.createCard()
 }
 
@@ -105,7 +104,7 @@ constants.openButtonPopupAvatar.addEventListener('click', () => {
 Promise.allSettled([api.getUser(), api.getCards()])
   .then(([{value: user}, {value: cards}]) => {
     userInfo.setUserInfo(user);
-    userId = user._id;
+    constants.userId._id = user._id;
     section.rendererItems(cards);
   })
   .catch(err => console.log(err))
