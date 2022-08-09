@@ -13,7 +13,7 @@ const api = new Api(constants.configApi);
 const popupItem = new PopupWithForm('#popup_info', handleSubmitUser);
 const popupCard = new PopupWithForm('#popup_card', handleSubmitCard);
 const popupAvatar = new PopupWithForm('#popup_avatar', handelSubmitAvatar);
-const popupImageClass = new PopupWithImage('#popup_image');
+const popupImage = new PopupWithImage('#popup_image');
 const popupDeleteCard = new PopupWithDeleteCard('#popup_delete-card', submitDeleteCard);
 
 let userId = '';
@@ -79,7 +79,7 @@ function deleteCard(id) {
 }
 
 function openPopupCard(name, link) {
-  popupImageClass.openPopup(name, link)
+  popupImage.openPopup(name, link)
 }
 
 function renderer(item) {
@@ -89,16 +89,16 @@ function renderer(item) {
 
 [formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
 
-popupImageClass.setEventListener();
+popupImage.setEventListener();
 popupCard.setEventListener();
 popupItem.setEventListener();
 popupDeleteCard.setEventListener();
 popupAvatar.setEventListener();
 
 constants.openButtonPopupCard.addEventListener('click', () => {
-    popupCard.openPopup();
-    formValidCard.clearValidationFrom();
-  });
+  popupCard.openPopup();
+  formValidCard.clearValidationFrom();
+});
 
 constants.openButtonPopupInfo.addEventListener('click', () => {
   popupItem.openPopup();
