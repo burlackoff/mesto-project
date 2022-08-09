@@ -56,15 +56,19 @@ function submitDeleteCard(id) {
     }) 
 }
 
-function handelLikeCard(like, id) {
-  if (like.classList.contains('card__like-button_active')) {
-    api.deleteLike(id)
-      .then(res => this._deleteLike(res))
+function handelLikeCard(card) {
+  if (card.statusLike()) {
+    api.deleteLike(card._id)
+      .then((res) => {
+        card.likes = res.likes
+        card.updateLikes()
+      })
       .catch(err => console.log(err))
-  } else if (!like.classList.contains('card__like-button_active')) {
-    api.putLike(id)
-      .then(res => {
-        this._addLike(res)
+  } else if (!card.statusLike()) {
+    api.putLike(card._id)
+      .then((res) => {
+        card.likes = res.likes
+        card.updateLikes()
       })
       .catch(err => console.log(err))
   }
