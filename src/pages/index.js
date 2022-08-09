@@ -57,21 +57,12 @@ function submitDeleteCard(id) {
 }
 
 function handelLikeCard(card) {
-  if (card.statusLike()) {
-    api.deleteLike(card._id)
-      .then((res) => {
-        card.likes = res.likes
-        card.updateLikes()
-      })
-      .catch(err => console.log(err))
-  } else if (!card.statusLike()) {
-    api.putLike(card._id)
-      .then((res) => {
-        card.likes = res.likes
-        card.updateLikes()
-      })
-      .catch(err => console.log(err))
-  }
+  const data = card.statusLike() ? api.deleteLike(card._id) : api.putLike(card._id);
+  data
+    .then((res) => {
+      card.likes = res.likes
+      card.updateLikes()})
+    .catch(err => console.log(err))
 }
 
 function deleteCard(id) {
