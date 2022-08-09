@@ -1,6 +1,6 @@
-import * as constants from '../components/utils.js'
-import Api from '../components/api.js'
-import Card from '../components/card_new.js'
+import * as constants from '../utils/constants.js'
+import Api from '../components/Api.js'
+import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
@@ -9,64 +9,57 @@ import UserInfo from '../components/UserInfo.js'
 import PopupWithDeleteCard from '../components/PopupWithDeleteCard.js'
 import './index.css';
 
+const api = new Api(constants.configApi);
+const popupItem = new PopupWithForm('#popup_info', handleSubmitUser);
+const popupCard = new PopupWithForm('#popup_card', handleSubmitCard);
+const popupAvatar = new PopupWithForm('#popup_avatar', handelSubmitAvatar);
+const popupImageClass = new PopupWithImage('#popup_image');
+const popupDeleteCard = new PopupWithDeleteCard('#popup_delete-card', submitDeleteCard);
 
 let userId = '';
 const formValidAvatar = new FormValidator(constants.valueConfig, constants.formPopupAvatar);
 const formValidCard = new FormValidator(constants.valueConfig, constants.formPopupCard);
 const formValidProfile = new FormValidator(constants.valueConfig, constants.formPopupInfo);
 const section = new Section(renderer, '.cards__list');
-
+const userInfo = new UserInfo({name: '.profile__name', about: '.profile__profession', avatar: '.profile__avatar'});
 
 [formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
 
-const configApi = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
-  headers: {
-    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
-    'Content-Type': 'application/json' 
-  }
-}
-const api = new Api(configApi);
-
-
-Promise.all([api.getUser(), api.getCards()])
-  .then(([user, cards]) => {
-    constants.nameProfile.textContent = user.name;
-    constants.professionProfile.textContent = user.about;
-    constants.avatarImage.src = user.avatar;
-    userId = user._id;
-    section.rendererItems(cards)
-  })
-  .catch(err => console.log(err))
-
-
-const popupItem = new PopupWithForm('#popup_info', handleSubmitUser);
-const popupCard = new PopupWithForm('#popup_card', handleSubmitCard)
-const popupImageClass = new PopupWithImage('#popup_image');
-const popupDeleteCard = new PopupWithDeleteCard('#popup_delete-card', submitDeleteCard)
 popupImageClass.setEventListener();
 popupCard.setEventListener();
 popupItem.setEventListener();
 popupDeleteCard.setEventListener();
-
-const userInfo = new UserInfo({name: '.profile__name', about: '.profile__profession'})
-userInfo.getUserinfo()
+popupAvatar.setEventListener();
 
 constants.openButtonPopupCard.addEventListener('click', () => {
     popupCard.openPopup();
     formValidCard.clearValidationFrom();
   });
 
+constants.openButtonPopupInfo.addEventListener('click', () => {
+  popupItem.openPopup();
+  formValidProfile.clearValidationFrom();
+})
 
-function handleSubmitUser({nameProfile, professionProfile}) {
-  constants.cardConfig.owner.name = nameProfile;
-  constants.cardConfig.owner.about = professionProfile;
+constants.openButtonPopupAvatar.addEventListener('click', () => {
+  popupAvatar.openPopup();
+  formValidAvatar.enableValidation();
+})
 
-  api.patchUser(constants.cardConfig.owner)
-    .then((res) => {
-      this.closePopup()
-      constants.nameProfile.textContent = res.name;
-      constants.professionProfile.textContent = res.about;
+function handelSubmitAvatar(data) {
+  api.patchUserAvatar(data)
+    .then(avatar => {
+      userInfo.setUserInfo(avatar);
+      popupAvatar.closePopup();
+    })
+    .catch(res => console.log(res));
+}
+
+function handleSubmitUser(data) {
+  api.patchUser(data)
+    .then((user) => {
+      popupItem.closePopup()
+      userInfo.setUserInfo(user)
     })
     .catch(res => console.log(res));
 }
@@ -85,75 +78,6 @@ function submitDeleteCard(id) {
       popupDeleteCard.closePopup()
     }) 
 }
-
-// function handleProfileEditFormSubmit(evt) {
-//   evt.preventDefault();
-//   constants.cardConfig.owner.name = constants.nameInput.value;
-//   constants.cardConfig.owner.about = constants.jobInput.value
-//   constants.buttonSubmitInfo.textContent = 'Сохранение...';
-//   patchUser(constants.cardConfig.owner)
-//     .then(() => {
-//       closePopup(constants.popupInfo);
-//       constants.nameProfile.textContent = constants.nameInput.value;
-//       constants.professionProfile.textContent = constants.jobInput.value;
-//     })
-//     .catch(err => console.log(err))
-//     .finally(() => constants.buttonSubmitInfo.textContent = 'Сохранить');
-// };
-
-// function handleCreatCardFromSubmit(evt) {
-//   evt.preventDefault();
-//   constants.cardConfig.name = constants.popupImageName.value;
-//   constants.cardConfig.link = constants.popupImageUrl.value;
-//   constants.buttonSubmitCard.textContent = 'Создание...';
-//   creatNewCard(constants.cardConfig.name, constants.cardConfig.link)
-//     .then(cardData => {
-//       appendCard(createCard(cardData));
-//       closePopup(constants.popupCard);
-//       constants.formPopupCard.reset();
-//     })
-//     .catch(err => console.log(err))
-//     .finally(() => constants.buttonSubmitCard.textContent = 'Создать');
-
-// };
-
-// function handleAvatarEditSubmit(evt) {
-//   evt.preventDefault();
-//   constants.cardConfig.owner.avatar = `${constants.popupAvatarUrl.value}`;
-//   constants.buttonSubmitAvatar.textContent = 'Создание...';
-//   patchUserAvatar(constants.cardConfig.owner)
-//     .then(() => {
-//       popupAva.closePopup();
-//       constants.avatarImage.src = constants.popupAvatarUrl.value;
-//     })
-//     .catch(err => console.log(err))
-//     .finally(() => constants.buttonSubmitAvatar.textContent = 'Создать');
-
-// }
-
-// constants.formPopupInfo.addEventListener('submit', handleProfileEditFormSubmit);
-// constants.formPopupCard.addEventListener('submit', handleCreatCardFromSubmit);
-// constants.formPopupAvatar.addEventListener('submit', handleAvatarEditSubmit);
-
-// constants.openButtonPopupCard.addEventListener('click', () => {
-//   openPopup(constants.popupCard);
-//   formValidCard.clearValidationFrom();
-// });
-
-// constants.openButtonPopupInfo.addEventListener('click', () => {
-//   openPopup(constants.popupInfo);
-//   constants.nameInput.value = constants.nameProfile.textContent;
-//   constants.jobInput.value = constants.professionProfile.textContent;
-//   formValidProfile.clearValidationFrom();
-// });
-// constants.openButtonPopupAvatar.addEventListener('click', () => {
-//   popupAva.openPopup()
-//   constants.popupAvatarUrl.value = constants.avatarImage.src;
-//   formValidAvatar.clearValidationFrom();
-// })
-
-
-
 
 function handelLikeCard(like, id) {
   if (like.classList.contains('card__like-button_active')) {
@@ -181,3 +105,11 @@ function renderer(item) {
   const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard);
   return card.createCard()
 }
+
+Promise.allSettled([api.getUser(), api.getCards()])
+  .then(([{value: user}, {value: cards}]) => {
+    userInfo.setUserInfo(user)
+    userId = user._id;
+    section.rendererItems(cards)
+  })
+  .catch(err => console.log(err))

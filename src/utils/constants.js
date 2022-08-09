@@ -46,11 +46,6 @@ export const valueConfig = {
   errorClass: 'popup__error_active'
 }
 
-const config = {
-  url: 'https://nomoreparties.co/v1/plus-cohort-12',
-  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b'
-}
-
 export const cardConfig = {
   name: "",
   link: "",
@@ -59,7 +54,15 @@ export const cardConfig = {
     name: "",
     about: "",
     avatar: "",
-    _id: `${config.userId}`
+    _id: ""
   },
   _id: ""
+}
+
+export const configApi = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
+  headers: {
+    authorization: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
+    'Content-Type': 'application/json' 
+  }
 }
