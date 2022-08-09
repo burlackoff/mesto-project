@@ -23,29 +23,6 @@ const formValidProfile = new FormValidator(constants.valueConfig, constants.form
 const section = new Section(renderer, '.cards__list');
 const userInfo = new UserInfo({name: '.profile__name', about: '.profile__profession', avatar: '.profile__avatar'});
 
-[formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
-
-popupImageClass.setEventListener();
-popupCard.setEventListener();
-popupItem.setEventListener();
-popupDeleteCard.setEventListener();
-popupAvatar.setEventListener();
-
-constants.openButtonPopupCard.addEventListener('click', () => {
-    popupCard.openPopup();
-    formValidCard.clearValidationFrom();
-  });
-
-constants.openButtonPopupInfo.addEventListener('click', () => {
-  popupItem.openPopup();
-  formValidProfile.clearValidationFrom();
-})
-
-constants.openButtonPopupAvatar.addEventListener('click', () => {
-  popupAvatar.openPopup();
-  formValidAvatar.enableValidation();
-})
-
 function handelSubmitAvatar(data) {
   api.patchUserAvatar(data)
     .then(avatar => {
@@ -105,6 +82,29 @@ function renderer(item) {
   const card = new Card(item, userId, handelLikeCard, deleteCard, openPopupCard);
   return card.createCard()
 }
+
+[formValidAvatar, formValidCard, formValidProfile].forEach(form => form.enableValidation())
+
+popupImageClass.setEventListener();
+popupCard.setEventListener();
+popupItem.setEventListener();
+popupDeleteCard.setEventListener();
+popupAvatar.setEventListener();
+
+constants.openButtonPopupCard.addEventListener('click', () => {
+    popupCard.openPopup();
+    formValidCard.clearValidationFrom();
+  });
+
+constants.openButtonPopupInfo.addEventListener('click', () => {
+  popupItem.openPopup();
+  formValidProfile.clearValidationFrom();
+})
+
+constants.openButtonPopupAvatar.addEventListener('click', () => {
+  popupAvatar.openPopup();
+  formValidAvatar.enableValidation();
+})
 
 Promise.allSettled([api.getUser(), api.getCards()])
   .then(([{value: user}, {value: cards}]) => {
