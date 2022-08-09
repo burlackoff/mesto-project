@@ -10,7 +10,7 @@ import PopupWithDeleteCard from '../components/PopupWithDeleteCard.js'
 import './index.css';
 
 const api = new Api(constants.configApi);
-const popupItem = new PopupWithForm('#popup_info', handleSubmitUser);
+const popupProfile = new PopupWithForm('#popup_info', handleSubmitUser);
 const popupCard = new PopupWithForm('#popup_card', handleSubmitCard);
 const popupAvatar = new PopupWithForm('#popup_avatar', handelSubmitAvatar);
 const popupImage = new PopupWithImage('#popup_image');
@@ -35,7 +35,7 @@ function handelSubmitAvatar(data) {
 function handleSubmitUser(data) {
   api.patchUser(data)
     .then((user) => {
-      popupItem.closePopup()
+      popupProfile.closePopup()
       userInfo.setUserInfo(user)
     })
     .catch(res => console.log(res));
@@ -82,7 +82,7 @@ function renderer(item) {
 
 popupImage.setEventListener();
 popupCard.setEventListener();
-popupItem.setEventListener();
+popupProfile.setEventListener();
 popupDeleteCard.setEventListener();
 popupAvatar.setEventListener();
 
@@ -92,8 +92,9 @@ constants.openButtonPopupCard.addEventListener('click', () => {
 });
 
 constants.openButtonPopupInfo.addEventListener('click', () => {
-  popupItem.openPopup();
+  popupProfile.openPopup();
   formValidProfile.clearValidationFrom();
+  popupProfile.setInputValues(userInfo.getUserInfo());
 })
 
 constants.openButtonPopupAvatar.addEventListener('click', () => {
@@ -103,8 +104,8 @@ constants.openButtonPopupAvatar.addEventListener('click', () => {
 
 Promise.allSettled([api.getUser(), api.getCards()])
   .then(([{value: user}, {value: cards}]) => {
-    userInfo.setUserInfo(user)
+    userInfo.setUserInfo(user);
     userId = user._id;
-    section.rendererItems(cards)
+    section.rendererItems(cards);
   })
   .catch(err => console.log(err))
