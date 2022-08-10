@@ -1,6 +1,5 @@
 export const popupInfo = document.querySelector('#popup_info');
 export const formPopupInfo = popupInfo.querySelector('.popup__form');
-export const buttonSubmitInfo = popupInfo.querySelector('.popup__submit');
 export const openButtonPopupInfo = document.querySelector('.profile__edit');
 export const popupCard = document.querySelector('#popup_card');
 export const openButtonPopupCard = document.querySelector('.profile__add');
