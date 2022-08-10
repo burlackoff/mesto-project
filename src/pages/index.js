@@ -23,12 +23,14 @@ const section = new Section(renderer, '.cards__list');
 const userInfo = new UserInfo({name: '.profile__name', about: '.profile__profession', avatar: '.profile__avatar'});
 
 function handelSubmitAvatar(data) {
+  popupAvatar.rendererLoading(true);
   api.patchUserAvatar(data)
     .then(avatar => {
       userInfo.setUserInfo(avatar);
       popupAvatar.closePopup();
     })
-    .catch(res => console.log(res));
+    .catch(res => console.log(res))
+    .finally(() => popupAvatar.rendererLoading(false))
 }
 
 function handleSubmitUser(data) {

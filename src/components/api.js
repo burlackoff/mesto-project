@@ -58,7 +58,7 @@ export default class Api {
     return this._getData(`cards/likes/${id}`, 'DELETE')
   }
 
-  patchUserAvatar(data) {
-    return this._setData('users/me/avatar', 'PATCH', data)
+  patchUserAvatar({avatar: url}) {
+    return this._setData('users/me/avatar', 'PATCH', {avatar: url})
   }
 }
