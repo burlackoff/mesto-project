@@ -1,5 +1,6 @@
 export default class Popup {
   static _body = document.querySelector('body');
+  static _escape = 'Escape'
 
   constructor(selector) {
     this._popup = document.querySelector(selector);
@@ -19,7 +20,7 @@ export default class Popup {
   }
 
   _handleEscClose = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === Popup._escape) {
       this.closePopup();
     }
   }
