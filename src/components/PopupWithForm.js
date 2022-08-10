@@ -12,7 +12,7 @@ export default class PopupWithForm extends Popup {
 
   rendererLoading(isLoading, loadingText='Сохранение...') {
     isLoading === true 
-    ? this._buttonSubmit.textContent = loadingText 
+    ? this._buttonSubmit.textContent = loadingText
     : this._buttonSubmit.textContent = this._buttonSubmitText;
   }
 
@@ -35,7 +35,6 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._submit(this._getInputValues());
-      this.closePopup();
     })
   }
 

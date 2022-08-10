@@ -23,30 +23,36 @@ const section = new Section(renderer, '.cards__list');
 const userInfo = new UserInfo({name: '.profile__name', about: '.profile__profession', avatar: '.profile__avatar'});
 
 function handelSubmitAvatar(data) {
-  popupAvatar.rendererLoading(true);
+  popupAvatar.rendererLoading(true, 'Создание...');
   api.patchUserAvatar(data)
     .then(avatar => {
       userInfo.setUserInfo(avatar);
       popupAvatar.closePopup();
     })
     .catch(res => console.log(res))
-    .finally(() => popupAvatar.rendererLoading(false))
+    .finally(() => popupAvatar.rendererLoading(false, 'Создать'))
 }
 
 function handleSubmitUser(data) {
+  popupProfile.rendererLoading(true)
   api.patchUser(data)
     .then((user) => {
-      popupProfile.closePopup()
       userInfo.setUserInfo(user)
+      popupProfile.closePopup()
     })
-    .catch(res => console.log(res));
+    .catch(res => console.log(res))
+    .finally(() => popupProfile.rendererLoading(false))
 }
 
 function handleSubmitCard(data) {
+  popupCard.rendererLoading(true, 'Создание...')
   api.creatNewCard(data)
     .then((res) => {
-      section.addItem(renderer(res))
+      section.addItem(renderer(res));
+      popupCard.closePopup();
     })
+    .catch(res => console.log(res))
+    .finally(() => popupCard.rendererLoading(true, 'Создать'))
 }
 
 function submitDeleteCard(id) {
