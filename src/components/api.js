@@ -1,105 +1,64 @@
-export const config = {
-  url: 'https://nomoreparties.co/v1/plus-cohort-12',
-  token: 'ae6caf2d-a00b-4726-a9ec-c3ff5914df0b',
-  userId: ''
-}
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json()
+export default class Api {
+  constructor(data) {
+    this._baseUrl = data.baseUrl;
+    this._headers = data.headers;
   }
-  return Promise.reject(`Ошибка ${res}`)
-}
 
-export function getCards() {
-  return fetch(`${config.url}/cards`, {
-  headers: {
-    authorization: `${config.token}`
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка ${res}`)
   }
-  })
-  .then(checkResponse)
-}
 
-export function getUser() {
-  return fetch(`${config.url}/users/me`, {
-  headers: {
-    authorization: `${config.token}`
+  _getData(url, method) {
+    return fetch(`${this._baseUrl}/${url}`, {
+      method: method,
+      headers: this._headers
+    })
+    .then(this._checkResponse)
+    .catch(err => console.log(err))
   }
-  })
-  .then(checkResponse)
-}
 
-export function patchUser(owner) {
-  return fetch(`${config.url}/users/me`, {
-    method: 'PATCH',
-    headers: {
-      authorization: `${config.token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: owner.name,
-      about: owner.about,
-      avatar: `${owner.avatar}`
+  _setData(url, method, data) {
+    return fetch(`${this._baseUrl}/${url}`, {
+      method: method,
+      headers: this._headers,
+      body: JSON.stringify(data)
     })
-  })
-  .then(checkResponse)
-}
+    .then(this._checkResponse)
+    .catch(err => console.log(err))
+  }
 
-export function creatNewCard(name, link) {
-  return fetch(`${config.url}/cards`, {
-    method: 'POST',
-    headers: {
-      authorization: `${config.token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: name,
-      link: `${link}`
-    })
-  })
-  .then(checkResponse)
-}
+  getCards() {
+    return this._getData('cards', 'GET')
+  }
 
-export function deleteCard(cardId) {
-  return fetch(`${config.url}/cards/${cardId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: `${config.token}`
-    }
-  })
-  .then(checkResponse)
-}
+  getUser() {
+    return this._getData('users/me', 'GET')
+  }
 
-export function putLike(cardId) {
-  return fetch(`${config.url}/cards/likes/${cardId}`, {
-    method: 'PUT',
-    headers: {
-      authorization: `${config.token}`
-    }
-  })
-  .then(checkResponse)
-}
+  patchUser(data) {
+    return this._setData('users/me', 'PATCH', data)
+  }
 
-export function deleteLike(cardId) {
-  return fetch(`${config.url}/cards/likes/${cardId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: `${config.token}`
-    }
-  })
-  .then(checkResponse)
-}
+  creatNewCard(data) {
+    return this._setData('cards', 'POST', data)
+  }
 
-export function patchUserAvatar(owner) {
-  return fetch(`${config.url}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: {
-      authorization: `${config.token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      avatar: `${owner.avatar}`
-    })
-  })
-  .then(checkResponse)
+  deleteCard(id) {
+    return this._getData(`cards/${id}`, 'DELETE')
+  }
+
+  putLike(id) {
+    return this._getData(`cards/likes/${id}`, 'PUT')
+  }
+
+  deleteLike(id) {
+    return this._getData(`cards/likes/${id}`, 'DELETE')
+  }
+
+  patchUserAvatar({avatar: url}) {
+    return this._setData('users/me/avatar', 'PATCH', {avatar: url})
+  }
 }
